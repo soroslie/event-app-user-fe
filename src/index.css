@@ -23,3 +23,7 @@ html{
 .add-idr::before{
   content: 'IDR ';
 }
+
+.underline-under{
+  text-underline-position: under
+}

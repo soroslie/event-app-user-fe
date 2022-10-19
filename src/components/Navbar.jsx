@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react';
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
-import { NavLink } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import navigationConstant from '../constants/navigation';
 import Logo from './Logo';
+import NavbarItem from './NavbarItem';
+import NavbarItemMobile from './NavbarItemMobile';
 
 export default function Navbar() {
+  const { pathname } = useLocation();
+
   const [nav, setnav] = useState(false);
   // nav styling state
   const [color, setColor] = useState('black');
@@ -36,18 +41,14 @@ export default function Navbar() {
       <div className="max-w-[1240px] m-auto flex justify-between items-center p-4 text-white">
         <Logo color={textColor} />
         <ul style={{ color: `${textColor}` }} className="hidden sm:flex">
-          <li className="p-4">
-            <NavLink to="/">Home</NavLink>
-          </li>
-          <li className="p-4">
-            <NavLink to="/memberships">Memberships</NavLink>
-          </li>
-          <li className="p-4">
-            <NavLink to="/work">Work</NavLink>
-          </li>
-          <li className="p-4">
-            <NavLink to="/contact">Contact</NavLink>
-          </li>
+          {navigationConstant.nav.map((item) => (
+            <NavbarItem
+              key={item.key}
+              path={item.path}
+              title={item.title}
+              active={pathname === item.path}
+            />
+          ))}
         </ul>
         {/* Mobile Buton */}
         <button type="button" className="block sm:hidden z-10" onClick={handleNav}>
@@ -66,9 +67,14 @@ export default function Navbar() {
           }
         >
           <ul>
-            <button type="button" onClick={handleNav} className="p-4 text-4xl hover:text-gray-500">
-              <NavLink to="/">Home</NavLink>
-            </button>
+            {navigationConstant.nav.map((item) => (
+              <NavbarItemMobile
+                path={item.path}
+                title={item.title}
+                active={pathname === item.path}
+                onClick={handleNav}
+              />
+            ))}
           </ul>
         </div>
       </div>

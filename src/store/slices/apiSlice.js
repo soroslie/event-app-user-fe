@@ -9,7 +9,7 @@ export const apiSlice = createApi({
     baseUrl: APIConstatnt.baseUrl,
     prepareHeaders: setPrepareHeader,
   }),
-  tagTypes: ['Auth'],
+  tagTypes: ['Auth', 'Membership'],
   endpoints: (builder) => ({
     authLogin: builder.mutation({
       query: ({ email, password }) => ({
@@ -26,7 +26,7 @@ export const apiSlice = createApi({
     authRegister: builder.mutation({
       query: ({ email, password }) => ({
         headers: (headers) => setPrepareHeader(headers),
-        url: '/auth/login',
+        url: '/auth/register',
         method: 'POST',
         body: {
           email,
@@ -35,9 +35,17 @@ export const apiSlice = createApi({
       }),
       providesTags: ['Auth'],
     }),
+    getEventMemberships: builder.query({
+      query: () => ({
+        url: '/event/memberships',
+        method: 'GET',
+      }),
+      providesTags: ['Membership'],
+    }),
   }),
 });
 
 export const {
   useAuthLoginMutation,
+  useGetEventMembershipsQuery,
 } = apiSlice;

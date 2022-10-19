@@ -8,6 +8,8 @@ import Auth from './pages/Auth';
 import Layout from './components/layout/Layout';
 import PageNotFound from './pages/PageNotFound';
 import Membership from './pages/Membership';
+import Topup from './pages/Topup';
+import EventList from './pages/EventList';
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="/memberships" element={<Membership />} />
+            <Route path="/topup" element={<Topup />} />
+            <Route path="/events" element={<EventList />} />
           </Route>
           <Route path="/notfound" element={<PageNotFound />} />
           <Route path="*" element={<Navigate to="/notfound" replace />} />
