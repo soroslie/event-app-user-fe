@@ -14,9 +14,10 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
+          <Route path="/login" element={<Auth />} />
+
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="/login" element={<Auth />} />
             <Route path="/memberships" element={<Membership />} />
           </Route>
           <Route path="/notfound" element={<PageNotFound />} />

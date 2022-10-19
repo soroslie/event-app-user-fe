@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import Logo from './Logo';
 
 export default function Navbar() {
-  const location = useLocation;
   const [nav, setnav] = useState(false);
   // nav styling state
   const [color, setColor] = useState('black');
@@ -34,11 +34,7 @@ export default function Navbar() {
       className="fixed left-0 top-0 w-full z-10 ease-in duration-300"
     >
       <div className="max-w-[1240px] m-auto flex justify-between items-center p-4 text-white">
-        <NavLink to="/">
-          <h1 style={{ color: `${textColor}` }} className="font-bold text-4xl ">
-            Event App
-          </h1>
-        </NavLink>
+        <Logo color={textColor} />
         <ul style={{ color: `${textColor}` }} className="hidden sm:flex">
           <li className="p-4">
             <NavLink to="/">Home</NavLink>
