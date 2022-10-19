@@ -10,6 +10,14 @@ function Auth() {
   const [isLogin, setIsLogin] = useState(true);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem(LocalStorageConstant.tokenKey);
+    if (token) {
+      navigate('/');
+    }
+  }, []);
+
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [buttonLoading, setButtonLoading] = useState(false);
   const [login] = useAuthLoginMutation();
@@ -114,11 +122,7 @@ function Auth() {
         <div className="my-6">
           <Logo color="#FF6600" />
         </div>
-        <div className="flex items-center flex-row place-content-evenly">
-          <p className={`my-4  font-bold text-2xl uppercase ${isLogin ? 'underline text-orange-400' : 'text-gray-400'}`}>Login</p>
-          <p className={`my-4 font-bold text-2xl uppercase ${!isLogin ? 'underline text-orange-400' : 'text-gray-400'}`}>Register</p>
 
-        </div>
         <form onSubmit={onHandleLogin}>
           <div className="mb-4">
             <InputAuth placeholder="Email" type="text" onChange={handleChange} name="email" error={inputError.email} value={input.email} />

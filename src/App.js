@@ -1,7 +1,7 @@
 import './App.css';
 import {
   BrowserRouter,
-  Navigate, Route, Router, Routes,
+  Navigate, Route, Routes,
 } from 'react-router-dom';
 import Home from './pages/Home';
 import Auth from './pages/Auth';
@@ -10,6 +10,7 @@ import PageNotFound from './pages/PageNotFound';
 import Membership from './pages/Membership';
 import Topup from './pages/Topup';
 import EventList from './pages/EventList';
+import RequireAuth from './components/RequireAuth';
 
 function App() {
   return (
@@ -18,7 +19,14 @@ function App() {
         <Routes>
           <Route path="/login" element={<Auth />} />
 
-          <Route path="/" element={<Layout />}>
+          <Route
+            path="/"
+            element={(
+              <RequireAuth redirectTo="/login">
+                <Layout />
+              </RequireAuth>
+            )}
+          >
             <Route index element={<Home />} />
             <Route path="/memberships" element={<Membership />} />
             <Route path="/topup" element={<Topup />} />

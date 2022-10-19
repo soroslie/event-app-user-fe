@@ -5,12 +5,12 @@ import navigationConstant from '../constants/navigation';
 import Logo from './Logo';
 import NavbarItem from './NavbarItem';
 import NavbarItemMobile from './NavbarItemMobile';
+import NavbarItemDropDown from './NavbarItemDropDown';
 
 export default function Navbar() {
   const { pathname } = useLocation();
 
   const [nav, setnav] = useState(false);
-  // nav styling state
   const [color, setColor] = useState('black');
   const [textColor, setTextColor] = useState('white');
 
@@ -49,6 +49,12 @@ export default function Navbar() {
               active={pathname === item.path}
             />
           ))}
+          <NavbarItem
+            path="/profile"
+            title="profile"
+            active={pathname === '/profile'}
+          />
+          <NavbarItemDropDown />
         </ul>
         {/* Mobile Buton */}
         <button type="button" className="block sm:hidden z-10" onClick={handleNav}>
@@ -69,6 +75,7 @@ export default function Navbar() {
           <ul>
             {navigationConstant.nav.map((item) => (
               <NavbarItemMobile
+                key={item.id}
                 path={item.path}
                 title={item.title}
                 active={pathname === item.path}
@@ -78,6 +85,7 @@ export default function Navbar() {
           </ul>
         </div>
       </div>
+
     </div>
   );
 }

@@ -1,35 +1,18 @@
 import React from 'react';
+import navigationConstant from '../constants/navigation';
 
 function Footer() {
   return (
     <footer className="bg-white">
-      <div className="max-w-screen-xl px-4 py-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
+      <div className="max-w-[1240px] px-4 py-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
         <nav className="flex flex-wrap justify-center -mx-5 -my-2">
-          <div className="px-5 py-2">
-            <a href="/" className="text-base leading-6 text-gray-500 hover:text-gray-900">
-              About
-            </a>
-          </div>
-          <div className="px-5 py-2">
-            <a href="/" className="text-base leading-6 text-gray-500 hover:text-gray-900">
-              Blog
-            </a>
-          </div>
-          <div className="px-5 py-2">
-            <a href="/" className="text-base leading-6 text-gray-500 hover:text-gray-900">
-              Team
-            </a>
-          </div>
-          <div className="px-5 py-2">
-            <a href="/" className="text-base leading-6 text-gray-500 hover:text-gray-900">
-              Pricing
-            </a>
-          </div>
-          <div className="px-5 py-2">
-            <a href="/" className="text-base leading-6 text-gray-500 hover:text-gray-900">
-              Contact
-            </a>
-          </div>
+          {navigationConstant.footer.map((item) => (
+            <div key={item.key} className="px-5 py-2">
+              <a href={item.path} className="text-base leading-6 text-gray-500 hover:text-orange-700">
+                {item.title}
+              </a>
+            </div>
+          ))}
         </nav>
         <div className="flex justify-center mt-8 space-x-6">
           <a href="/" className="text-gray-400 hover:text-gray-500">
