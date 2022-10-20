@@ -24,7 +24,6 @@ function Membership() {
             price={item.price}
           />
         )))}
-
       </div>
       {loading && !error && (<MemberhsipItemSkeleton />)}
       {!loading && error && (<ErrorCard message={error.error} />)}

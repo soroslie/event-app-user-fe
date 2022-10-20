@@ -4,7 +4,7 @@ function MembershipItem({
   name, discount, price, isLoading,
 }) {
   return (
-    <div className="text-center shadow-md mx-8 sm:mx-0 rounded-xl md:shadow-md col-span-12 md:col-span-3 hover:scale-105">
+    <div className="text-center shadow-md mx-8 sm:mx-0 rounded-xl md:shadow-md col-span-12 md:col-span-3 hover:scale-105 duration-300">
       {isLoading ? <div className=" bg-slate-200 rounded h-44" />
         : (
           <>

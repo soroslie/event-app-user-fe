@@ -122,7 +122,7 @@ function Profile() {
     <div>
       {' '}
       <PageHeader title="Profile" />
-      {!error && isLoading && <ProfileSkeleton />}
+      {error && !isLoading && <ProfileSkeleton />}
       {!error && !isLoading && (
       <div className="p-8 bg-white shadow-xl mt-4 max-w-xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3">
@@ -142,7 +142,7 @@ function Profile() {
             </svg>
           </div>
         </div>
-        <div className="text-center border-b pb-12 mt-4 md:mt-10">
+        <div className="text-center mb-12 border-b pb-12 mt-4 md:mt-10">
           <div>
             <Input disabled value={data.data.email} title="email" />
             <p className="font-light text-green-600 mt-3 capitalize add-idr text-4xl">{data.data.balance}</p>
@@ -152,7 +152,7 @@ function Profile() {
             </div>
           </div>
         </div>
-        <Form onSubmit={onHandleSubmit} className="mt-12 flex flex-col justify-center">
+        <Form onSubmit={onHandleSubmit} className="flex flex-col justify-center">
           <Input error={inputError.password} value={input.password} name="password" title="password" onChange={handleChange} type="password" placholder="current password" />
           <Input error={inputError.newPassword} value={input.newPassword} name="newPassword" title="New Password" onChange={handleChange} type="password" placholder="new password" />
           <Input error={inputError.confirmNewPassword} value={input.confirmNewPassword} name="confirmNewPassword" title="Confirm New Password" onChange={handleChange} type="password" placholder="confirm new password" />

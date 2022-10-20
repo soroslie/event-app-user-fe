@@ -71,6 +71,13 @@ export const apiSlice = createApi({
       }),
       providesTags: ['Profile'],
     }),
+    getEvents: builder.query({
+      query: () => ({
+        url: '/events',
+        method: 'GET',
+      }),
+      providesTags: ['Events'],
+    }),
   }),
 });
 
@@ -81,4 +88,5 @@ export const {
   useGetEventMembershipsQuery,
   useTopUpMutation,
   useGetProfileQuery,
+  useGetEventsQuery,
 } = apiSlice;

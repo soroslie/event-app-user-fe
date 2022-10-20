@@ -52,7 +52,7 @@ html {
   min-width: 160px;
   border-top-left-radius: 10%;
   border-top-right-radius: 10%;
-
+  margin-left: -450%;
   border-bottom-left-radius: 20%;
   border-bottom-right-radius: 20%;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
