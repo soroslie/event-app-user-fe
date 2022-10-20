@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import { useLocation } from 'react-router-dom';
-import navigationConstant from '../constants/navigation';
-import Logo from './Logo';
+import navigationConstant from '../../constants/navigation';
+import Logo from '../Logo';
 import NavbarItem from './NavbarItem';
 import NavbarItemMobile from './NavbarItemMobile';
 import NavbarItemDropDown from './NavbarItemDropDown';
@@ -49,11 +49,6 @@ export default function Navbar() {
               active={pathname === item.path}
             />
           ))}
-          <NavbarItem
-            path="/profile"
-            title="profile"
-            active={pathname === '/profile'}
-          />
           <NavbarItemDropDown />
         </ul>
         {/* Mobile Buton */}

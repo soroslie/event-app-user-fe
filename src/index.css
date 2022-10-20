@@ -2,34 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-html{
+html {
   scroll-behavior: smooth;
   font-family: 'Raleway', 'sans-serif';
 }
 
-.bg-secondary-grey{
+.bg-secondary-grey {
   background-color: #f1f6ff80;
 }
 
-.add-percentage::after{
+.add-percentage::after {
   content: '%';
 }
 
-.add-idr::before{
+.add-idr::before {
   content: 'IDR ';
 }
 
-.underline-under{
+.underline-under {
   text-underline-position: under
 }
 
 
 /* MODAL */
-.bg-backdrop{
+.bg-backdrop {
   background-color: hsla(0, 0%, 50%, 0.534);
 }
 
-.lock-scroll{
+.lock-scroll {
   overflow: hidden;
 }
 
@@ -50,23 +50,42 @@ html{
   position: absolute;
   background-color: white;
   min-width: 160px;
+  border-top-left-radius: 10%;
+  border-top-right-radius: 10%;
+
   border-bottom-left-radius: 20%;
   border-bottom-right-radius: 20%;
-
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
 /* Links inside the dropdown */
-.dropdown-content a {
+.dropdown-content-item {
   color: orange;
   padding: 12px 16px;
-  text-decoration: none;
-  display: block;
+  display: flex;
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: rgba(255, 102, 0,50);}
+.dropdown-content p:hover {
+  background-color: rgba(255, 102, 0, 50);
+  cursor: pointer;
+}
 
+.dropdown-content p:nth-child(1):hover{
+
+  background-color: rgba(255, 102, 0, 50);
+  border-top-left-radius: 12%;
+  border-top-right-radius: 12%;
+}
+
+.dropdown-content p:nth-child(3):hover{
+
+  background-color: rgba(255, 102, 0, 50);
+  border-bottom-left-radius: 20%;
+  border-bottom-right-radius: 20%;
+}
 /* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropdown-content {
+  display: block;
+}

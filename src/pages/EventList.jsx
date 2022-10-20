@@ -1,8 +1,12 @@
 import React from 'react';
 
+import PageHeader from '../components/layout/PageHeader';
+
 function EventList() {
   return (
-    <div>EventList</div>
+    <div>
+      <PageHeader title="browse all events" />
+    </div>
   );
 }
 

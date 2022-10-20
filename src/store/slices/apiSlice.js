@@ -34,6 +34,18 @@ export const apiSlice = createApi({
       }),
       providesTags: ['Auth'],
     }),
+    authChangePassword: builder.mutation({
+      query: ({ password, newPassword, confirmNewPassword }) => ({
+        url: '/user/change-password',
+        method: 'PATCH',
+        body: {
+          password,
+          new_password: newPassword,
+          confirm_new_password: confirmNewPassword,
+        },
+      }),
+      providesTags: ['Profile'],
+    }),
     getEventMemberships: builder.query({
       query: () => ({
         url: '/event/memberships',
@@ -50,6 +62,7 @@ export const apiSlice = createApi({
         },
       }),
       providesTags: ['Payment'],
+      invalidatesTags: (result, error, arg) => (!error && result ? ['Profile'] : []),
     }),
     getProfile: builder.query({
       query: () => ({
@@ -64,6 +77,7 @@ export const apiSlice = createApi({
 export const {
   useAuthLoginMutation,
   useAuthRegisterMutation,
+  useAuthChangePasswordMutation,
   useGetEventMembershipsQuery,
   useTopUpMutation,
   useGetProfileQuery,

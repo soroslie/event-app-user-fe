@@ -1,5 +1,5 @@
 class LocalStorageConstant {
-  static tokenKey = 'TOKEN';
+  static TOKEN_KEY = 'TOKEN';
 }
 
 export default LocalStorageConstant;

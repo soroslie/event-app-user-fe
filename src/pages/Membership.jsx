@@ -1,9 +1,10 @@
 import React from 'react';
 import PageHeader from '../components/layout/PageHeader';
-import MembershipItem from '../components/pages/Membership/MembershipItem';
+import MemberhsipItemSkeleton from '../components/pages/Membership/MemberhsipSkeleton';
+import ErrorCard from '../components/cards/ErrorCard';
 import SecondaryButton from '../components/input/SecondaryButton';
 import { useGetEventMembershipsQuery } from '../store/slices/apiSlice';
-import MemberhsipItemSkeleton from '../components/pages/Membership/MemberhsipSkeleton';
+import MembershipItem from '../components/pages/Membership/MembershipItem';
 
 function Membership() {
   const {
@@ -26,11 +27,16 @@ function Membership() {
 
       </div>
       {loading && !error && (<MemberhsipItemSkeleton />)}
-      <p className="max-w-[1240px]  sm:ml-10 mt-2 text-gray-400 text-center sm:text-left">*This membership apllied forever and bind to this account</p>
+      {!loading && error && (<ErrorCard message={error.error} />)}
 
-      <div className="my-10 justify-center items-center text-center">
-        <SecondaryButton title="upgrade now" />
-      </div>
+      {!loading && !error && (
+      <>
+        <p className="max-w-[1240px] sm:ml-10 mt-2 text-gray-400 text-center sm:text-left">*This membership apllied forever and bind to this account</p>
+        <div className="my-10 justify-center items-center text-center">
+          <SecondaryButton title="upgrade now" />
+        </div>
+      </>
+      )}
     </div>
   );
 }

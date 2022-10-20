@@ -8,7 +8,7 @@ const RequireAuth = ({ children, redirectTo }) => {
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
-    const token = localStorage.getItem(LocalStorageConstant.tokenKey);
+    const token = localStorage.getItem(LocalStorageConstant.TOKEN_KEY);
 
     if (!token) {
       navigate(redirectTo, { replace: true, state: { from: location.pathname } });

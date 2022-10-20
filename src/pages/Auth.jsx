@@ -10,7 +10,7 @@ function Auth() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem(LocalStorageConstant.tokenKey);
+    const token = localStorage.getItem(LocalStorageConstant.TOKEN_KEY);
     if (token) {
       navigate('/');
     }
@@ -62,7 +62,7 @@ function Auth() {
     })
       .unwrap()
       .then((data) => {
-        localStorage.setItem(LocalStorageConstant.tokenKey, data.data.id_token);
+        localStorage.setItem(LocalStorageConstant.TOKEN_KEY, data.data.id_token);
         navigate('/');
       })
       .catch((error) => {
