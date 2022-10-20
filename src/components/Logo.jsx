@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 function Logo({ color }) {
   return (
     <NavLink to="/">
-      <h1 style={{ color: `${color}` }} className="font-bold text-4xl ">
+      <h1 style={{ color: `${color}` }} className="font-bold text-4xl text-center">
         Event App
       </h1>
     </NavLink>

@@ -19,7 +19,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Auth />} />
-
           <Route
             path="/"
             element={(

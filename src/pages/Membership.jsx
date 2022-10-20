@@ -1,9 +1,9 @@
 import React from 'react';
 import PageHeader from '../components/layout/PageHeader';
-import MembershipItem from '../components/pages/home/Membership/MembershipItem';
+import MembershipItem from '../components/pages/Membership/MembershipItem';
 import SecondaryButton from '../components/input/SecondaryButton';
 import { useGetEventMembershipsQuery } from '../store/slices/apiSlice';
-import MemberhsipItemSkeleton from '../components/pages/home/Membership/MemberhsipSkeleton';
+import MemberhsipItemSkeleton from '../components/pages/Membership/MemberhsipSkeleton';
 
 function Membership() {
   const {
@@ -28,7 +28,7 @@ function Membership() {
       {loading && !error && (<MemberhsipItemSkeleton />)}
       <p className="max-w-[1240px]  sm:ml-10 mt-2 text-gray-400 text-center sm:text-left">*This membership apllied forever and bind to this account</p>
 
-      <div className="my-10">
+      <div className="my-10 justify-center items-center text-center">
         <SecondaryButton title="upgrade now" />
       </div>
     </div>

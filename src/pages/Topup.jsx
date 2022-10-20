@@ -49,29 +49,32 @@ function Topup() {
     return setShowConfirmationModal(true);
   };
 
-  const doTopUp = () => topup({
-    amount: parseInt(input.amount, 10),
-  })
-    .unwrap()
-    .then((data) => {
-      setShowConfirmationModal(false);
-      setInput({
-        amount: '',
-      });
-      setSuccessModal({
-        show: true,
-        message: data.message,
-      });
-      setButtonLoading(false);
+  const doTopUp = () => {
+    setButtonLoading(true);
+    return topup({
+      amount: parseInt(input.amount, 10),
     })
-    .catch((error) => {
-      setShowConfirmationModal(false);
-      setErrorModal({
-        show: true,
-        message: 'something went wrong',
+      .unwrap()
+      .then((data) => {
+        setShowConfirmationModal(false);
+        setInput({
+          amount: '',
+        });
+        setSuccessModal({
+          show: true,
+          message: data.message,
+        });
+        setButtonLoading(false);
+      })
+      .catch((error) => {
+        setShowConfirmationModal(false);
+        setErrorModal({
+          show: true,
+          message: 'something went wrong',
+        });
+        setButtonLoading(false);
       });
-      setButtonLoading(false);
-    });
+  };
 
   const closeModal = () => {
     setShowConfirmationModal(false);

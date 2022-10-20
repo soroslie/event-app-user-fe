@@ -51,6 +51,13 @@ export const apiSlice = createApi({
       }),
       providesTags: ['Payment'],
     }),
+    getProfile: builder.query({
+      query: () => ({
+        url: '/user/profile',
+        method: 'GET',
+      }),
+      providesTags: ['Profile'],
+    }),
   }),
 });
 
@@ -59,4 +66,5 @@ export const {
   useAuthRegisterMutation,
   useGetEventMembershipsQuery,
   useTopUpMutation,
+  useGetProfileQuery,
 } = apiSlice;

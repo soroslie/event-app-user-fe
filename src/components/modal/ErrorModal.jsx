@@ -17,7 +17,7 @@ function ErrorModal({
         <p className="text-center text-red-600 text-xl md:text-2xl">{message}</p>
       </div>
       <div className="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200">
-        <CancelModalButton onClick={onCloseModal} />
+        <CancelModalButton onClick={onCloseModal} title="close" />
       </div>
     </ModalLayout>
   );
