@@ -23,7 +23,7 @@ function ScrollButton() {
   window.addEventListener('scroll', toggleVisible);
 
   return (
-    <button type="button" className="w-14 h-14 bg-orange-400 rounded-full animate-bounce b-0 r-0 border-none">
+    <button type="button" className={`fixed w-14 h-14 right-0 bottom-0 m-10 bg-orange-400 rounded-full animate-bounce border-none ${visible ? '' : 'hidden'}`}>
       <FaArrowCircleUp
         onClick={scrollToTop}
         size={40}

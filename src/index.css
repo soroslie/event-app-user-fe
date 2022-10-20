@@ -7,11 +7,6 @@ html{
   font-family: 'Raleway', 'sans-serif';
 }
 
-.custom-img{
-  background-image: url('./assets/images/hero-bg.jpg');
- background-position: center; 
-}
-
 .bg-secondary-grey{
   background-color: #f1f6ff80;
 }
@@ -26,6 +21,16 @@ html{
 
 .underline-under{
   text-underline-position: under
+}
+
+
+/* MODAL */
+.bg-backdrop{
+  background-color: hsla(0, 0%, 50%, 0.534);
+}
+
+.lock-scroll{
+  overflow: hidden;
 }
 
 .dropbtn {

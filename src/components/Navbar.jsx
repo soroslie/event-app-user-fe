@@ -43,7 +43,7 @@ export default function Navbar() {
         <ul style={{ color: `${textColor}` }} className="hidden sm:flex">
           {navigationConstant.nav.map((item) => (
             <NavbarItem
-              key={item.key}
+              key={item.id}
               path={item.path}
               title={item.title}
               active={pathname === item.path}

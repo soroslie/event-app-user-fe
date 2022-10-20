@@ -13,7 +13,6 @@ export const apiSlice = createApi({
   endpoints: (builder) => ({
     authLogin: builder.mutation({
       query: ({ email, password }) => ({
-        headers: (headers) => setPrepareHeader(headers),
         url: '/auth/login',
         method: 'POST',
         body: {
@@ -24,13 +23,13 @@ export const apiSlice = createApi({
       providesTags: ['Auth'],
     }),
     authRegister: builder.mutation({
-      query: ({ email, password }) => ({
-        headers: (headers) => setPrepareHeader(headers),
+      query: ({ email, password, confirmPassword }) => ({
         url: '/auth/register',
         method: 'POST',
         body: {
           email,
           password,
+          confirm_password: confirmPassword,
         },
       }),
       providesTags: ['Auth'],
@@ -42,10 +41,22 @@ export const apiSlice = createApi({
       }),
       providesTags: ['Membership'],
     }),
+    topUp: builder.mutation({
+      query: ({ amount }) => ({
+        url: '/user/topup',
+        method: 'POST',
+        body: {
+          amount,
+        },
+      }),
+      providesTags: ['Payment'],
+    }),
   }),
 });
 
 export const {
   useAuthLoginMutation,
+  useAuthRegisterMutation,
   useGetEventMembershipsQuery,
+  useTopUpMutation,
 } = apiSlice;

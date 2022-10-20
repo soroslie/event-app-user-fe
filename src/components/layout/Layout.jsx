@@ -12,8 +12,9 @@ function Layout() {
         <div className="mx-auto max-w-[1240px] ">
           <Outlet />
         </div>
+        <ScrollButton />
+
       </div>
-      <ScrollButton />
       <Footer />
     </>
   );

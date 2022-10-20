@@ -1,5 +1,5 @@
 import React from 'react';
-import PageHeader from '../components/PageHeader';
+import PageHeader from '../components/layout/PageHeader';
 import MembershipItem from '../components/pages/home/Membership/MembershipItem';
 import SecondaryButton from '../components/input/SecondaryButton';
 import { useGetEventMembershipsQuery } from '../store/slices/apiSlice';

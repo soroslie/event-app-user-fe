@@ -7,7 +7,7 @@ function Footer() {
       <div className="max-w-[1240px] px-4 py-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
         <nav className="flex flex-wrap justify-center -mx-5 -my-2">
           {navigationConstant.footer.map((item) => (
-            <div key={item.key} className="px-5 py-2">
+            <div key={item.id} className="px-5 py-2">
               <a href={item.path} className="text-base leading-6 text-gray-500 hover:text-orange-700">
                 {item.title}
               </a>

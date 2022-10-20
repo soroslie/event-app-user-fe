@@ -3,12 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import PrimarryButton from '../components/input/PrimaryButton';
 import Logo from '../components/Logo';
 import LocalStorageConstant from '../constants/local_storage';
-import { useAuthLoginMutation } from '../store/slices/apiSlice';
+import { useAuthLoginMutation, useAuthRegisterMutation } from '../store/slices/apiSlice';
 import InputAuth from '../components/input/InputAuth';
 
 function Auth() {
-  const [isLogin, setIsLogin] = useState(true);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,9 +16,13 @@ function Auth() {
     }
   }, []);
 
+  const [login] = useAuthLoginMutation();
+  const [register] = useAuthRegisterMutation();
+
+  const [isLogin, setIsLogin] = useState(true);
+
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [buttonLoading, setButtonLoading] = useState(false);
-  const [login] = useAuthLoginMutation();
 
   const [input, setInput] = useState({
     email: '',
@@ -53,30 +55,13 @@ function Auth() {
     setIsLogin(!isLogin);
   };
 
-  const onHandleLogin = (e) => {
-    e.preventDefault();
-    resetFormInput();
-    if (!input.email) {
-      return setInputError({
-        ...inputError,
-        email: 'Please fill the email field',
-      });
-    }
-    if (!input.password) {
-      return setInputError({
-        ...inputError,
-        password: 'Please fill the password field',
-      });
-    }
-
-    setButtonLoading(true);
+  const doLogin = () => {
     login({
       email: input.email,
       password: input.password,
     })
       .unwrap()
       .then((data) => {
-        setButtonLoading(false);
         localStorage.setItem(LocalStorageConstant.tokenKey, data.data.id_token);
         navigate('/');
       })
@@ -94,6 +79,63 @@ function Auth() {
         }
         setButtonLoading(false);
       });
+  };
+
+  const doRegister = () => {
+    register({
+      email: input.email,
+      password: input.password,
+      confirmPassword: input.confirmPassword,
+    })
+      .unwrap()
+      .then((data) => {
+        setIsLogin(true);
+        setInput({
+          email: '',
+          password: '',
+          confirmPassword: '',
+        });
+        resetFormInput();
+        setButtonLoading(false);
+      })
+      .catch((error) => {
+        if (error.data.error_message) {
+          setInputError({
+            ...inputError,
+            formError: error.data.error_message,
+          });
+        } else {
+          setInputError({
+            ...inputError,
+            formError: 'something went wrong',
+          });
+        }
+        setButtonLoading(false);
+      });
+  };
+
+  const onHandleSubmit = (e) => {
+    e.preventDefault();
+    resetFormInput();
+    if (!input.email) {
+      return setInputError({
+        ...inputError,
+        email: 'Please fill the email field',
+      });
+    }
+    if (!input.password) {
+      return setInputError({
+        ...inputError,
+        password: 'Please fill the password field',
+      });
+    }
+
+    setButtonLoading(true);
+    if (isLogin) {
+      doLogin();
+    } else {
+      doRegister();
+    }
 
     return resetFormInput();
   };
@@ -123,7 +165,7 @@ function Auth() {
           <Logo color="#FF6600" />
         </div>
 
-        <form onSubmit={onHandleLogin}>
+        <form onSubmit={onHandleSubmit}>
           <div className="mb-4">
             <InputAuth placeholder="Email" type="text" onChange={handleChange} name="email" error={inputError.email} value={input.email} />
             <InputAuth placeholder="Pasword" type="password" onChange={handleChange} name="password" error={inputError.password} value={input.password} />
@@ -139,7 +181,7 @@ function Auth() {
           </div>
 
           <div className="flex items-center justify-between">
-            <PrimarryButton disabled={buttonDisabled} onClick={onHandleLogin} isLoading={buttonLoading} title={isLogin ? 'signin' : 'signup'} />
+            <PrimarryButton disabled={buttonDisabled} onClick={onHandleSubmit} isLoading={buttonLoading} title={isLogin ? 'signin' : 'signup'} />
           </div>
         </form>
       </div>

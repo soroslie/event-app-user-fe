@@ -11,6 +11,7 @@ import Membership from './pages/Membership';
 import Topup from './pages/Topup';
 import EventList from './pages/EventList';
 import RequireAuth from './components/RequireAuth';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             )}
           >
             <Route index element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/memberships" element={<Membership />} />
             <Route path="/topup" element={<Topup />} />
             <Route path="/events" element={<EventList />} />
