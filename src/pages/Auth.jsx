@@ -88,7 +88,7 @@ function Auth() {
       confirmPassword: input.confirmPassword,
     })
       .unwrap()
-      .then((data) => {
+      .then(() => {
         setIsLogin(true);
         setInput({
           email: '',

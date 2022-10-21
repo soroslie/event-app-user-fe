@@ -1,4 +1,5 @@
 import React from 'react';
+import StringHelper from '../../../helpers/stringHelper';
 
 function MembershipItem({
   name, discount, price, isLoading,
@@ -11,7 +12,7 @@ function MembershipItem({
             <div className="text-xlfont-bold text-3xl py-4 bg-secondary-grey capitalize">{name}</div>
             <div className="bg-white text-2xl font-semibold">
               <div className="p-3 text-green-500 add-percentage">{discount}</div>
-              <div className="p-3 text-blue-300  add-idr ">{price}</div>
+              <div className="p-3 text-blue-300  add-idr ">{StringHelper.formatWithCommas(price)}</div>
             </div>
           </>
         )}

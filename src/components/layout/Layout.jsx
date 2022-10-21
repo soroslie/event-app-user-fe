@@ -8,12 +8,11 @@ function Layout() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen ">
+      <div className="min-h-[94vh] ">
         <div className="mx-auto max-w-[1240px] ">
           <Outlet />
         </div>
         <ScrollButton />
-
       </div>
       <Footer />
     </>

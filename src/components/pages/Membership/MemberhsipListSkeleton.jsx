@@ -1,11 +1,11 @@
 import React from 'react';
 
-function MemberhsipSkeleton() {
+function MemberhsipListSkeleton() {
   const loopEventItms = () => {
     const content = [];
     for (let i = 0; i < 4; i += 1) {
       content.push(
-        <div className="shadow-md mx-8 sm:mx-0 rounded-xl md:shadow-md col-span-12 md:col-span-3 hover:scale-105 duration-300">
+        <div key={i} className="shadow-md mx-8 sm:mx-0 rounded-xl md:shadow-md col-span-12 md:col-span-3 hover:scale-105 duration-300">
           <div className="flex justify-center items-center w-full h-48 bg-gray-300 rounded">
             <svg
               className="w-12 h-12 text-gray-200"
@@ -30,4 +30,4 @@ function MemberhsipSkeleton() {
   );
 }
 
-export default MemberhsipSkeleton;
+export default MemberhsipListSkeleton;

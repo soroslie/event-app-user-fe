@@ -1,6 +1,5 @@
 import CancelModalButton from './CancelButton';
 import ModalLayout from './ModalLayout';
-import ErrorCard from '../cards/ErrorCard';
 
 function ErrorModal({
   show,

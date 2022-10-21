@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import LocalStorageConstant from '../../constants/local_storage';
 import { useGetProfileQuery } from '../../store/slices/apiSlice';
 import Spinner from '../Spinner';
+import { setProfile } from '../../store/slices/profileSlice';
 
 function NavbarItemDropDown() {
   const token = localStorage.getItem(LocalStorageConstant.TOKEN_KEY);
@@ -21,8 +23,18 @@ function NavbarItemDropDown() {
     localStorage.removeItem(LocalStorageConstant.TOKEN_KEY);
     navigate('/login');
   };
+  const dispatch = useDispatch();
 
   const { data, error, isFetching: isLoading } = useGetProfileQuery();
+  useEffect(() => {
+    if (data && !error && !isLoading) {
+      dispatch(setProfile({
+        membershipType: data.data.membership_type,
+        email: data.data.email,
+        balance: data.data.balance,
+      }));
+    }
+  }, [data]);
 
   return (
     <>
