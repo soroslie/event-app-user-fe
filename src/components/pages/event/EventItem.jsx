@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import moment from 'moment';
 import { BsCoin, BsPerson } from 'react-icons/bs';
@@ -13,9 +15,10 @@ function EventItem({
   maxXapacity,
   startTime,
   duration,
+  onClick,
 }) {
   return (
-    <div className="hover:cursor-pointer col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 max-w-sm bg-white rounded-2xl border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:scale-105 duration-300">
+    <div onClick={onClick} className="hover:cursor-pointer col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 max-w-sm bg-white rounded-2xl border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:scale-105 duration-300">
       <div className="p-3 relative">
         <img className="rounded-3xl shadow-lg" src={image} alt="" />
         <BookMarkButton />
@@ -30,7 +33,7 @@ function EventItem({
           <div>
             <p className="mb-1 font-normal text-gray-600 text-xs align-baseline flex items-center">
               <AiOutlineCalendar className="mr-1 text-orange-600" />
-              {moment(startTime).format('DD MMM YYYY')}
+              {moment(startTime).format('DD, MMM YYYY')}
             </p>
             <p className="mb-3 font-normal text-gray-600 text-sm align-baseline flex items-center">
               <span className="align-baseline flex items-center">

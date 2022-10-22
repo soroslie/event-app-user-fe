@@ -28,7 +28,7 @@ function Select({
           className="capitalize cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:bg-white focus:border-orange-300 focus:outline-none w-full p-2.5 "
         >
           {data.map((item) => (
-            <option className="capitalize" key={item.id} value={item.id}>
+            <option disabled={defaultValue === item.name || defaultValue === item.id ? true : null} className="capitalize" key={item.id} value={item.id}>
               {item.name}
             </option>
           ))}

@@ -64,6 +64,17 @@ export const apiSlice = createApi({
       providesTags: ['Payment'],
       invalidatesTags: (result, error, arg) => (!error && result ? ['Profile'] : []),
     }),
+    upgradeMembership: builder.mutation({
+      query: ({ membershipId }) => ({
+        url: '/user/membership',
+        method: 'PATCH',
+        body: {
+          membership_id: membershipId,
+        },
+      }),
+      providesTags: ['Payment'],
+      invalidatesTags: (result, error, arg) => (!error && result ? ['Profile'] : []),
+    }),
     getProfile: builder.query({
       query: () => ({
         url: '/user/profile',
@@ -78,6 +89,13 @@ export const apiSlice = createApi({
       }),
       providesTags: ['Events'],
     }),
+    getEvent: builder.query({
+      query: ({ id }) => ({
+        url: `/events/${id}`,
+        method: 'GET',
+      }),
+      providesTags: ['Events'],
+    }),
   }),
 });
 
@@ -87,6 +105,8 @@ export const {
   useAuthChangePasswordMutation,
   useGetEventMembershipsQuery,
   useTopUpMutation,
+  useUpgradeMembershipMutation,
   useGetProfileQuery,
   useGetEventsQuery,
+  useGetEventQuery,
 } = apiSlice;

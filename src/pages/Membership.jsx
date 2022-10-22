@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Select from '../components/input/Select';
 import Form from '../components/input/Form';
@@ -6,15 +6,96 @@ import PrimarryButton from '../components/input/PrimaryButton';
 import PageHeader from '../components/layout/PageHeader';
 import SecondaryButton from '../components/input/SecondaryButton';
 import MembershipList from '../components/pages/Membership/MembershipList';
-import { useGetEventMembershipsQuery } from '../store/slices/apiSlice';
+import { useGetEventMembershipsQuery, useUpgradeMembershipMutation } from '../store/slices/apiSlice';
+import SuccessModal from '../components/modal/SuccessModal';
+import ErrorModal from '../components/modal/ErrorModal';
+import PaymentModal from '../components/modal/PaymentModal';
+import StringHelper from '../helpers/stringHelper';
 
 function Membership() {
-  const { membershipType } = useSelector((state) => state.profile);
+  const [upgradeMembership] = useUpgradeMembershipMutation();
   const {
     data,
     error,
     isFetching: loading,
   } = useGetEventMembershipsQuery();
+
+  const [hideForm, setHideForm] = useState(true);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [successModal, setSuccessModal] = useState({
+    message: '',
+    show: false,
+  });
+  const [errorModal, setErrorModal] = useState({
+    message: '',
+    show: false,
+  });
+  const [confirmationModal, setConfirmationModal] = useState({
+    message: '',
+    show: false,
+    data: '',
+  });
+
+  const { membershipType } = useSelector((state) => state.profile);
+  const [newMembershipType, setNewMembershipType] = useState(1);
+
+  const onHandleSubmit = (e) => {
+    e.preventDefault();
+    return setConfirmationModal({ ...confirmationModal, show: true });
+  };
+
+  const onChangeHandler = (e) => {
+    setButtonDisabled(false);
+    setConfirmationModal({
+      message: e.target.options[e.target.selectedIndex].text,
+      data: data.data[e.target.value - 1],
+    });
+    setNewMembershipType(e.target.value);
+  };
+
+  const doUpdateMembership = () => upgradeMembership({
+    membershipId: parseInt(newMembershipType, 10),
+  })
+    .unwrap()
+    .then((reponse) => {
+      setConfirmationModal({ show: false });
+      setSuccessModal({
+        show: true,
+        message: reponse.message,
+      });
+    })
+    .catch((err) => {
+      setConfirmationModal({ ...confirmationModal, show: false });
+      if (err) {
+        setErrorModal({
+          show: true,
+          message: err.data.error_message,
+        });
+      } else {
+        setErrorModal({
+          show: true,
+          message: 'something went wrong',
+        });
+      }
+    });
+
+  const closeModal = () => {
+    setConfirmationModal({
+      show: false,
+    });
+  };
+
+  const closeSuccesModal = () => {
+    setSuccessModal({
+      show: false,
+    });
+  };
+
+  const closeErrorModal = () => {
+    setErrorModal({
+      show: false,
+    });
+  };
 
   return (
     <>
@@ -25,15 +106,46 @@ function Membership() {
         error={!loading && !error ? error : null}
       />
       <p className="max-w-[1240px] sm:ml-10 mt-2 text-gray-400 text-center sm:text-left">*This membership apllied lifetime and bind to this account</p>
+      {membershipType && (
       <div className="my-10 justify-center items-center text-center">
-        <SecondaryButton title="upgrade now" isLoading={loading} />
+        <SecondaryButton title="upgrade now" isLoading={loading} onClick={() => { setHideForm(false); }} />
       </div>
-      <div className="shadow-lg max-w-2xl mx-auto px-4 py-6 rounded-lg bg-slate-100">
-        <Form>
-          <Select isLoading={loading} data={!loading && !error ? data.data : []} title="select membership type" defaultValue={membershipType} />
-          <PrimarryButton title="CONFIRM" />
+      )}
+      {!hideForm && (
+      <>
+        <Form onSubmit={onHandleSubmit}>
+          <p className="text-center font-semibold">Current Level</p>
+          <p className="capitalize text-center font-bold text-orange-400 text-2xl">{membershipType}</p>
+
+          <Select isLoading={loading} data={!loading && !error ? data.data : []} name="memberships" onChange={onChangeHandler} title="select membership type" defaultValue={membershipType} />
+          <PrimarryButton title="CONFIRM" onClick={onHandleSubmit} disabled={buttonDisabled} />
         </Form>
-      </div>
+        <PaymentModal
+          show={confirmationModal.show}
+          onCloseModal={closeModal}
+          onConfirmModal={doUpdateMembership}
+          title="Confirmation Payment"
+          message={confirmationModal.message}
+          data={confirmationModal.data}
+        >
+          <div />
+        </PaymentModal>
+        {successModal.show && (
+        <SuccessModal
+          show={successModal.show}
+          onCloseModal={closeSuccesModal}
+          message={successModal.message}
+        />
+        )}
+        {errorModal.show && (
+        <ErrorModal
+          show={errorModal.show}
+          onCloseModal={closeErrorModal}
+          message={errorModal.message}
+        />
+        )}
+      </>
+      ) }
     </>
   );
 }

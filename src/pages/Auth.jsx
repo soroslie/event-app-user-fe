@@ -159,7 +159,7 @@ function Auth() {
   }, [input]);
 
   return (
-    <div className="flex items-center justify-center h-screen bg-orange-300">
+    <div className="flex items-center justify-center h-screen">
       <div className="bg-white shadow-lg rounded-3xl px-8 pt-6 pb-8 mb-4 flex flex-col w-[30rem]">
         <div className="my-6">
           <Logo color="#FF6600" />

@@ -15,6 +15,11 @@ html {
   content: '%';
 }
 
+.add-x::after {
+  content: 'x';
+}
+
+
 .add-idr::before {
   content: 'IDR ';
 }

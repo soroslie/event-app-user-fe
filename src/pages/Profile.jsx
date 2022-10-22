@@ -124,7 +124,7 @@ function Profile() {
       <PageHeader title="Profile" />
       {error && !isLoading && <ProfileSkeleton />}
       {!error && !isLoading && (
-      <div className="p-8 bg-white shadow-xl mt-4 max-w-xl mx-auto">
+      <div className="p-6 bg-gray-50 shadow-xl mt-4 max-w-xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3">
           <div className="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0" />
           <div className="w-24 h-24 bg-gray-100 mx-auto rounded-full shadow-2xl  flex items-center justify-center text-orange-500">
@@ -152,7 +152,7 @@ function Profile() {
             </div>
           </div>
         </div>
-        <Form onSubmit={onHandleSubmit} className="flex flex-col justify-center">
+        <Form onSubmit={onHandleSubmit}>
           <Input error={inputError.password} value={input.password} name="password" title="password" onChange={handleChange} type="password" placholder="current password" />
           <Input error={inputError.newPassword} value={input.newPassword} name="newPassword" title="New Password" onChange={handleChange} type="password" placholder="new password" />
           <Input error={inputError.confirmNewPassword} value={input.confirmNewPassword} name="confirmNewPassword" title="Confirm New Password" onChange={handleChange} type="password" placholder="confirm new password" />

@@ -1,10 +1,10 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import LocalStorageConstant from '../constants/local_storage';
 import JWTHelper from '../helpers/jwtHelper';
 
 const { useEffect } = require('react');
 
-const RequireAuth = ({ children, redirectTo }) => {
+function RequireAuth({ children, redirectTo }) {
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
@@ -22,7 +22,7 @@ const RequireAuth = ({ children, redirectTo }) => {
     }
   }, [location]);
 
-  return children;
-};
+  return <Outlet />;
+}
 
 export default RequireAuth;

@@ -19,21 +19,27 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Auth />} />
           <Route
             path="/"
             element={(
-              <RequireAuth redirectTo="/login">
-                <Layout />
-              </RequireAuth>
+              <Layout />
             )}
           >
+            <Route path="/login" element={<Auth />} />
             <Route index element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/memberships" element={<Membership />} />
-            <Route path="/topup" element={<Topup />} />
             <Route path="/events" element={<Events />} />
             <Route path="/events/:id" element={<EventDetail />} />
+
+            <Route
+              path="/"
+              element={(
+                <RequireAuth redirectTo="/login" />
+            )}
+            >
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/memberships" element={<Membership />} />
+              <Route path="/topup" element={<Topup />} />
+            </Route>
           </Route>
           <Route path="/notfound" element={<PageNotFound />} />
           <Route path="*" element={<Navigate to="/notfound" replace />} />

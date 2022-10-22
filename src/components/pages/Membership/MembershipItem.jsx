@@ -9,10 +9,10 @@ function MembershipItem({
       {isLoading ? <div className=" bg-slate-200 rounded h-44" />
         : (
           <>
-            <div className="text-xlfont-bold text-3xl py-4 bg-secondary-grey capitalize">{name}</div>
-            <div className="bg-white text-2xl font-semibold">
-              <div className="p-3 text-green-500 add-percentage">{discount}</div>
-              <div className="p-3 text-blue-300  add-idr ">{StringHelper.formatWithCommas(price)}</div>
+            <div className="font-bold text-3xl py-4 bg-secondary-grey capitalize">{name}</div>
+            <div className="bg-white text-2xl">
+              <div className="p-3 font-semibold text-green-500 add-percentage">{discount}</div>
+              <div className="p-3 ">{price === 0 ? <p className="text-red-300">Free</p> : <p className="add-idr text-blue-300">{StringHelper.formatWithCommas(price)}</p> }</div>
             </div>
           </>
         )}

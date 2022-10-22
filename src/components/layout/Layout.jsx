@@ -8,7 +8,7 @@ function Layout() {
   return (
     <>
       <Navbar />
-      <div className="min-h-[94vh] ">
+      <div className="min-h-[100vh] ">
         <div className="mx-auto max-w-[1240px] ">
           <Outlet />
         </div>
