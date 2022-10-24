@@ -11,7 +11,7 @@ function BookMarkButton({
       {loading && <Spinner />}
       {!loading && (
       <button type="button" className={`p-${buttonPadding}`} onClick={onClick}>
-        {marked ? <BsBookmark widths={size} size={size || ''} className="text-orange-600" /> : <BsBookmarkFill widths={size} size={size || ''} className="text-orange-600" />}
+        {!marked ? <BsBookmark widths={size} size={size || ''} className="text-orange-600" /> : <BsBookmarkFill widths={size} size={size || ''} className="text-orange-600" />}
       </button>
       )}
     </div>

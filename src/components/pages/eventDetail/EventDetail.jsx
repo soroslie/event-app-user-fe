@@ -1,31 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { BsGiftFill } from 'react-icons/bs';
 import { AiFillCalendar, AiOutlineFieldTime } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import BookMarkButton from '../event/BookMarkButton';
 import image from '../../../assets/images/event-example.jpg';
-import { usePostCreateEventBookmarkMutation } from '../../../store/slices/apiSlice';
+import { useLazyGetEventBookmarkQuery, useEventBookmarkMutation } from '../../../store/slices/apiSlice';
 import APIConstatnt from '../../../constants/api';
 
 function Event({ data }) {
   const { email } = useSelector((state) => state.profile);
-  const [bookmark] = usePostCreateEventBookmarkMutation();
+  const [bookmarking] = useEventBookmarkMutation();
   const [buttonLoading, setButtonLoading] = useState(false);
+  const [bookMarked, setBookMarked] = useState(false);
+  const [trigger, result, lastPromiseInfo] = useLazyGetEventBookmarkQuery();
+
+  useEffect(() => {
+    if (data.id) {
+      trigger({ eventId: data.id }).unwrap().then((response) => {
+        console.log(response);
+        if (response.data === null) {
+          setBookMarked(false);
+        }
+        if (response.data !== null) {
+          setBookMarked(true);
+        }
+      });
+    }
+  }, []);
 
   const handleBookmark = (eventId) => {
     setButtonLoading(true);
 
-    bookmark({
+    bookmarking({
       eventId,
-      method: APIConstatnt.METHOD.post,
+      method: !bookMarked ? APIConstatnt.METHOD.post : APIConstatnt.METHOD.delete,
     })
       .unwrap()
       .then(() => {
         setButtonLoading(false);
+        setBookMarked(!bookMarked);
       })
       .catch((error) => {
         setButtonLoading(false);
+        setBookMarked(!bookMarked);
       });
   };
 
@@ -33,7 +51,7 @@ function Event({ data }) {
     <div className="relative mt-20">
       <div className="relative">
         <img src={image} className="rounded-lg sm:rounded-none overflow-hidden" alt={`data.name ${image}`} />
-        {email && <BookMarkButton size="40" buttonPadding={6} onClick={() => handleBookmark(data.id)} loading={buttonLoading} />}
+        {email && <BookMarkButton marked={bookMarked} size="40" buttonPadding={6} onClick={() => handleBookmark(data.id)} loading={buttonLoading} />}
       </div>
       <div className="px-6 absolute w-full mt-[-5%] sm:mt-2 sm:rounded-t-none rounded-t-3xl z-40 my-6 [&>*]:p-2 [&>*]:mt-4 bg-white sm:shadow-xl">
         <div>
