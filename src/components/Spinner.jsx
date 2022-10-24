@@ -4,8 +4,7 @@ import style from '../assets/styles/components/Spinner.module.css';
 function Spinner() {
   return (
     <div className="w-full flex">
-      <div className="mx-auto">
-
+      <div className="mx-auto my-auto">
         <div className={style.lds_ring}>
           <div />
           <div />

@@ -5,7 +5,7 @@ function EventListSkeleton() {
     const content = [];
     for (let i = 0; i < 8; i += 1) {
       content.push(
-        <div key={i} className="animate-pulse hover:cursor-pointer col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 max-w-sm bg-white rounded-2xl border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:scale-105 duration-300">
+        <div key={i} className="animate-pulse hover:cursor-pointer col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 max-w-sm bg-white rounded-2xl border border-gray-200 shadow-md hover:scale-105 duration-300">
           <div className="p-3">
             <div className="flex justify-center items-center w-full h-48 bg-gray-300 rounded">
               <svg
@@ -20,21 +20,21 @@ function EventListSkeleton() {
             </div>
           </div>
           <div className="px-4 pb-4">
-            <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-full mb-4" />
+            <div className="h-2.5 bg-gray-200 rounded-full w-full mb-4" />
             <div className="grid grid-cols-2">
               <div>
-                <div className="mb-1 font-normal text-gray-600 text-xs align-baseline flex items-center">
+                <div className="mb-1 font-normal align-baseline flex items-center">
                   <div className="h-2.5 bg-gray-200 rounded-full w-32 mb-4" />
                 </div>
-                <div className="mb-3 font-normal text-gray-600 text-sm align-baseline flex items-center">
+                <div className="mb-3 font-normal text-sm align-baseline flex items-center">
                   <div className="h-2.5 bg-gray-200 rounded-full w-12 mb-4" />
                 </div>
               </div>
               <div>
-                <div className="mb-1 font-normal text-gray-600 text-sm align-baseline flex items-center justify-end">
+                <div className="mb-1 font-normal text-sm align-baseline flex items-center justify-end">
                   <div className="h-2.5 bg-gray-200 rounded-full w-12 mb-4" />
                 </div>
-                <div className="text-right mb-3 font-normal text-gray-600 text-sm flex items-center justify-end">
+                <div className="text-right mb-3 font-normal text-sm flex items-center justify-end">
                   <div className="h-2.5 bg-gray-200 rounded-full w-24 mb-4" />
                 </div>
               </div>

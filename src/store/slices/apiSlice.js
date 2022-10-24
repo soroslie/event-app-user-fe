@@ -96,17 +96,33 @@ export const apiSlice = createApi({
       }),
       providesTags: ['Events'],
     }),
+
+    postCreateEventBookmark: builder.mutation({
+      query: ({ eventId }) => ({
+        url: '/user/event-bookmark',
+        method: 'POST',
+        body: {
+          event_id: eventId,
+        },
+      }),
+      providesTags: ['Event-Bookmark'],
+    }),
   }),
 });
 
 export const {
   useAuthLoginMutation,
   useAuthRegisterMutation,
+
+  useGetProfileQuery,
   useAuthChangePasswordMutation,
-  useGetEventMembershipsQuery,
   useTopUpMutation,
   useUpgradeMembershipMutation,
-  useGetProfileQuery,
+
+  usePostCreateEventBookmarkMutation,
+
+  useGetEventMembershipsQuery,
   useGetEventsQuery,
   useGetEventQuery,
+
 } = apiSlice;
