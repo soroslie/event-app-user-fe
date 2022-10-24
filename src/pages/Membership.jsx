@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Select from '../components/input/Select';
 import Form from '../components/input/Form';
@@ -10,7 +10,6 @@ import { useGetEventMembershipsQuery, useUpgradeMembershipMutation } from '../st
 import SuccessModal from '../components/modal/SuccessModal';
 import ErrorModal from '../components/modal/ErrorModal';
 import PaymentModal from '../components/modal/PaymentModal';
-import StringHelper from '../helpers/stringHelper';
 
 function Membership() {
   const [upgradeMembership] = useUpgradeMembershipMutation();
@@ -116,7 +115,6 @@ function Membership() {
         <Form onSubmit={onHandleSubmit}>
           <p className="text-center font-semibold">Current Level</p>
           <p className="capitalize text-center font-bold text-orange-400 text-2xl">{membershipType}</p>
-
           <Select isLoading={loading} data={!loading && !error ? data.data : []} name="memberships" onChange={onChangeHandler} title="select membership type" defaultValue={membershipType} />
           <PrimarryButton title="CONFIRM" onClick={onHandleSubmit} disabled={buttonDisabled} />
         </Form>

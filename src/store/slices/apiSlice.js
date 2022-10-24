@@ -112,6 +112,12 @@ export const apiSlice = createApi({
       }),
       providesTags: ['Event-Bookmark'],
     }),
+    getEventPayments: builder.query({
+      query: () => ({
+        url: '/payments',
+      }),
+      providesTags: ['Payment'],
+    }),
   }),
 });
 
@@ -131,4 +137,5 @@ export const {
   useGetEventsQuery,
   useGetEventQuery,
 
+  useGetEventPaymentsQuery,
 } = apiSlice;
