@@ -1,10 +1,13 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import ErrorCard from '../../cards/ErrorCard';
 import EventItem from './EventItem';
 import EventListSkeleton from './EventListSkeleton';
 
 function EventList({ data, loading, error }) {
+  const { email } = useSelector((state) => state.profile);
+
   const navigate = useNavigate();
   return (
     <div>
@@ -20,6 +23,7 @@ function EventList({ data, loading, error }) {
           maxXapacity={item.max_capacity}
           startTime={item.start_time}
           onClick={() => navigate(`/events/${item.id}`)}
+          enableBookmark={email !== ''}
         />
       )))}
         {loading && <EventListSkeleton />}

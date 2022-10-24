@@ -16,12 +16,13 @@ function EventItem({
   startTime,
   duration,
   onClick,
+  enableBookmark,
 }) {
   return (
     <div onClick={onClick} className="hover:cursor-pointer col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 max-w-sm bg-white rounded-2xl border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:scale-105 duration-300">
       <div className="p-3 relative">
         <img className="rounded-3xl shadow-lg" src={image} alt="" />
-        <BookMarkButton buttonPadding={2} />
+        {enableBookmark && <BookMarkButton buttonPadding={2} />}
       </div>
       <div className="px-4 pb-4">
         <a href="/" className="relative">

@@ -14,7 +14,7 @@ export const apiSlice = createApi({
     authLogin: builder.mutation({
       query: ({ email, password }) => ({
         url: '/auth/login',
-        method: 'POST',
+        method: APIConstatnt.METHOD.post,
         body: {
           email,
           password,
@@ -25,7 +25,7 @@ export const apiSlice = createApi({
     authRegister: builder.mutation({
       query: ({ email, password, confirmPassword }) => ({
         url: '/auth/register',
-        method: 'POST',
+        method: APIConstatnt.METHOD.post,
         body: {
           email,
           password,
@@ -37,7 +37,7 @@ export const apiSlice = createApi({
     authChangePassword: builder.mutation({
       query: ({ password, newPassword, confirmNewPassword }) => ({
         url: '/user/change-password',
-        method: 'PATCH',
+        method: APIConstatnt.METHOD.patch,
         body: {
           password,
           new_password: newPassword,
@@ -49,14 +49,14 @@ export const apiSlice = createApi({
     getEventMemberships: builder.query({
       query: () => ({
         url: '/event/memberships',
-        method: 'GET',
+        method: APIConstatnt.METHOD.get,
       }),
       providesTags: ['Membership'],
     }),
     topUp: builder.mutation({
       query: ({ amount }) => ({
         url: '/user/topup',
-        method: 'POST',
+        method: APIConstatnt.METHOD.post,
         body: {
           amount,
         },
@@ -67,7 +67,7 @@ export const apiSlice = createApi({
     upgradeMembership: builder.mutation({
       query: ({ membershipId }) => ({
         url: '/user/membership',
-        method: 'PATCH',
+        method: APIConstatnt.METHOD.patch,
         body: {
           membership_id: membershipId,
         },
@@ -78,29 +78,29 @@ export const apiSlice = createApi({
     getProfile: builder.query({
       query: () => ({
         url: '/user/profile',
-        method: 'GET',
+        method: APIConstatnt.METHOD.get,
       }),
       providesTags: ['Profile'],
     }),
     getEvents: builder.query({
       query: () => ({
         url: '/events',
-        method: 'GET',
+        method: APIConstatnt.METHOD.get,
       }),
       providesTags: ['Events'],
     }),
     getEvent: builder.query({
       query: ({ id }) => ({
         url: `/events/${id}`,
-        method: 'GET',
+        method: APIConstatnt.METHOD.get,
       }),
       providesTags: ['Events'],
     }),
 
     postCreateEventBookmark: builder.mutation({
-      query: ({ eventId }) => ({
+      query: ({ eventId, method }) => ({
         url: '/user/event-bookmark',
-        method: 'POST',
+        method,
         body: {
           event_id: eventId,
         },
@@ -120,6 +120,7 @@ export const {
   useUpgradeMembershipMutation,
 
   usePostCreateEventBookmarkMutation,
+  useDeletetBookmarkMutation,
 
   useGetEventMembershipsQuery,
   useGetEventsQuery,

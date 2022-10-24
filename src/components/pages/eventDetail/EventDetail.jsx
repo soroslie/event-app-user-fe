@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import BookMarkButton from '../event/BookMarkButton';
 import image from '../../../assets/images/event-example.jpg';
 import { usePostCreateEventBookmarkMutation } from '../../../store/slices/apiSlice';
+import APIConstatnt from '../../../constants/api';
 
 function Event({ data }) {
   const { email } = useSelector((state) => state.profile);
@@ -17,6 +18,7 @@ function Event({ data }) {
 
     bookmark({
       eventId,
+      method: APIConstatnt.METHOD.post,
     })
       .unwrap()
       .then(() => {
