@@ -30,7 +30,8 @@ function Membership() {
     show: false,
   });
   const [confirmationModal, setConfirmationModal] = useState({
-    message: '',
+    message1: '',
+    message2: '',
     show: false,
     data: '',
   });
@@ -46,7 +47,8 @@ function Membership() {
   const onChangeHandler = (e) => {
     setButtonDisabled(false);
     setConfirmationModal({
-      message: e.target.options[e.target.selectedIndex].text,
+      message2: e.target.options[e.target.selectedIndex].text,
+      message1: 'are you sure to upgrade your membership to',
       data: data.data[e.target.value - 1],
     });
     setNewMembershipType(e.target.value);
@@ -57,7 +59,7 @@ function Membership() {
   })
     .unwrap()
     .then((reponse) => {
-      setConfirmationModal({ show: false });
+      setConfirmationModal({ ...confirmationModal, show: false });
       setSuccessModal({
         show: true,
         message: reponse.message,
@@ -80,7 +82,7 @@ function Membership() {
 
   const closeModal = () => {
     setConfirmationModal({
-      show: false,
+      ...confirmationModal, show: false,
     });
   };
 
@@ -123,11 +125,10 @@ function Membership() {
           onCloseModal={closeModal}
           onConfirmModal={doUpdateMembership}
           title="Confirmation Payment"
-          message={confirmationModal.message}
-          data={confirmationModal.data}
-        >
-          <div />
-        </PaymentModal>
+          message1={confirmationModal.message1}
+          message2={confirmationModal.message2}
+          dataMembership={confirmationModal.data}
+        />
         {successModal.show && (
         <SuccessModal
           show={successModal.show}

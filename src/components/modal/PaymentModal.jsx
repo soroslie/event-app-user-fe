@@ -5,11 +5,12 @@ import ConfirmModalButton from './ConfirmButton';
 import ModalLayout from './ModalLayout';
 
 function PaymentModal({
-  show, title, message, onCloseModal, onConfirmModal, data,
+  show, title, message1, message2, onCloseModal, onConfirmModal, dataMembership, dataPayments,
 }) {
   if (!show) {
     return null;
   }
+
   return (
     <ModalLayout title={title}>
       <div className="p-6 space-y-6">
@@ -27,26 +28,48 @@ function PaymentModal({
             </tr>
           </thead>
           <tbody>
+            {dataMembership && (
             <tr className="uppercase font-medium border-b-2 text-black [&>*]:p-2">
-              <td className="add-x">1</td>
-              <td>{data.name}</td>
-              <td className="add-idr">{StringHelper.formatWithCommas(data.price)}</td>
-              <td className="add-idr">{StringHelper.formatWithCommas(data.price)}</td>
+              <td>1X</td>
+              <td>{dataMembership.name}</td>
+              <td className="add-idr">{StringHelper.formatWithCommas(dataMembership.price)}</td>
+              <td className="add-idr">{StringHelper.formatWithCommas(dataMembership.price)}</td>
             </tr>
+            )}
+            {dataPayments && (dataPayments.map((item) => (
+              <tr key={item.id} className="history-item uppercase font-medium border-b-2 text-black [&>*]:py-4 [&>*]:px-2 hover:bg-gray-100">
+                <td className="add-x flex justify-between items-center">
+                  1
+                </td>
+                <td>{item.event_name}</td>
+                <td className="add-idr">{StringHelper.formatWithCommas(item.total_price)}</td>
+                <td className="add-idr">{StringHelper.formatWithCommas(item.total_price)}</td>
+              </tr>
+            )))}
           </tbody>
           <tfoot>
+            {dataMembership && (
             <tr className="[&>*]:p-2">
               <td className="font-bold uppercase" colSpan="3">Total</td>
-              <td colSpan="1" className="add-idr text-black font-bold">{StringHelper.formatWithCommas(data.price)}</td>
+              <td colSpan="1" className="add-idr text-black font-bold">{StringHelper.formatWithCommas(dataMembership.price)}</td>
             </tr>
+            )}
+            {dataPayments && (
+            <tr className="[&>*]:p-2">
+              <td className="font-bold uppercase" colSpan="3">Total</td>
+              <td colSpan="1" className="add-idr text-black font-bold">
+                {dataPayments ? `${StringHelper.formatWithCommas(`${dataPayments.reduce((acc, val) => acc + val.total_price, 0)}`)}` : '0' }
+              </td>
+            </tr>
+            )}
           </tfoot>
         </table>
         {' '}
         <div className="text-center">
-          are you sure to upgrade your membership to
+          {message1}
           {' '}
           <span className=" capitalize text-bold text-orange-600">
-            {message}
+            {message2}
           </span>
           ?
         </div>

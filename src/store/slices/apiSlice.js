@@ -105,18 +105,20 @@ export const apiSlice = createApi({
         },
       }),
       providesTags: ['Event-Bookmark'],
+      invalidatesTags: (result, error, arg) => (!error && result ? ['Payments'] : []),
     }),
     getEventBookmark: builder.query({
       query: ({ eventId }) => ({
         url: `/user/event-bookmark/${eventId}`,
       }),
       providesTags: ['Event-Bookmark'],
+      invalidatesTags: (result, error, arg) => (!error && result ? ['Payments'] : []),
     }),
     getEventPayments: builder.query({
       query: () => ({
         url: '/payments',
       }),
-      providesTags: ['Payment'],
+      providesTags: ['Payments'],
     }),
   }),
 });

@@ -1,18 +1,83 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { BsFillTrashFill } from 'react-icons/bs';
 import PageHeader from '../components/layout/PageHeader';
 import StringHelper from '../helpers/stringHelper';
 import Form from '../components/input/Form';
-import { useGetEventPaymentsQuery } from '../store/slices/apiSlice';
+import { useEventBookmarkMutation, useGetEventPaymentsQuery } from '../store/slices/apiSlice';
 import PaymentSkeleton from '../components/pages/payments/PaymentSkeleton';
+import '../assets/styles/pages/payment.css';
+import PrimarryButton from '../components/input/PrimaryButton';
+import APIConstatnt from '../constants/api';
+import PaymentModal from '../components/modal/PaymentModal';
+import ConfirmationModal from '../components/modal/ConfirmationModal';
 
 function Payments() {
   const { data, isFetching: loading, error } = useGetEventPaymentsQuery();
+  const [unBookmarking] = useEventBookmarkMutation();
+  const [confirmationUnbookmarkModal, setConfirmationUnbookmarkModal] = useState({
+    show: false,
+    message: '',
+    eventId: '',
+  });
+
+  const [confirmationPayModal, setConfirmationPayModal] = useState({
+    show: false,
+    message1: '',
+    dataPayments: [],
+  });
+
+  const handlerUnBookMark = (eventId, eventName) => {
+    setConfirmationUnbookmarkModal({
+      show: true,
+      message: `are youre to delete payment for ticket to event ${eventName}`,
+      eventId,
+    });
+  };
+
+  const doUnBookmark = () => {
+    unBookmarking({
+      eventId: confirmationUnbookmarkModal.eventId,
+      method: APIConstatnt.METHOD.delete,
+    })
+      .unwrap()
+      .then(() => {
+        setConfirmationUnbookmarkModal({ ...confirmationUnbookmarkModal, show: false });
+      })
+      .catch(() => {
+      });
+  };
+
+  const handlePayment = (e) => {
+    e.preventDefault();
+    setConfirmationPayModal({
+      show: true,
+      message1: 'are youre to complete payment with total amount ',
+      message2: data.data.reduce((acc, val) => acc + val.total_price, 0),
+      data: data.data,
+    });
+  };
+
+  const doPayment = () => {
+
+  };
+
+  const closeModalUnbookmarkConfiramation = () => {
+    setConfirmationUnbookmarkModal({
+      ...confirmationUnbookmarkModal, show: false,
+    });
+  };
+
+  const closeModalPayConfiramation = () => {
+    setConfirmationPayModal({
+      ...confirmationPayModal, show: false,
+    });
+  };
 
   return (
     <div>
       <PageHeader title="payments" />
       <h1>Events</h1>
-      <Form>
+      <Form onSubmit={handlePayment}>
         <table className="w-full text-sm text-left text-gray-500">
           <thead>
             <tr className="uppercase font-medium border-b-2 [&>*]:p-2">
@@ -34,8 +99,13 @@ function Payments() {
               </tr>
             )}
             {!loading && !error && data.data !== null && (data.data.map((item) => (
-              <tr key={item.id} className="uppercase font-medium border-b-2 text-black [&>*]:p-2">
-                <td className="add-x">1</td>
+              <tr key={item.id} className="history-item uppercase font-medium border-b-2 text-black [&>*]:py-4 [&>*]:px-2 hover:bg-gray-100">
+                <td className="flex justify-between items-center">
+                  <button type="button" className="delete-icon p-3 shadow-lg rounded-full my-auto" onClick={() => handlerUnBookMark(item.event_bookmark_id, item.event_name)}>
+                    <BsFillTrashFill className="text-red-600 w-5 h-5" />
+                  </button>
+                  <div className="ml-8 add-x left-side-overflow">1</div>
+                </td>
                 <td>{item.event_name}</td>
                 <td className="add-idr">{StringHelper.formatWithCommas(item.total_price)}</td>
                 <td className="add-idr">{StringHelper.formatWithCommas(item.total_price)}</td>
@@ -46,12 +116,29 @@ function Payments() {
             <tr className="[&>*]:p-2">
               <td className="font-bold uppercase" colSpan="3">Total</td>
               <td colSpan="1" className="add-idr text-black font-bold">
-                {!loading && !error && data.data === null && '0'}
+                {!loading && !error && data.data ? `${StringHelper.formatWithCommas(`${data.data.reduce((acc, val) => acc + val.total_price, 0)}`)}` : '0' }
               </td>
             </tr>
           </tfoot>
         </table>
+        <PrimarryButton title="submit" onClick={handlePayment} />
       </Form>
+      <PaymentModal
+        show={confirmationPayModal.show}
+        onCloseModal={closeModalPayConfiramation}
+        onConfirmModal={doPayment}
+        title="Confirmation Payment"
+        message1={confirmationPayModal.message1}
+        message2={confirmationPayModal.message2}
+        dataPayments={confirmationPayModal.data}
+      />
+      <ConfirmationModal
+        show={confirmationUnbookmarkModal.show}
+        onCloseModal={closeModalUnbookmarkConfiramation}
+        onConfirmModal={doUnBookmark}
+        title="Confirmation Payment Cancel"
+        message={confirmationUnbookmarkModal.message}
+      />
     </div>
   );
 }

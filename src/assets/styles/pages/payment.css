@@ -1,0 +1,16 @@
+.history-item:hover .delete-icon {
+    visibility: visible;
+}
+
+.delete-icon:hover {
+    cursor: pointer;
+}
+
+
+.delete-icon {
+    padding: 5px;
+    font-size: 10px;
+    position: absolute;
+    visibility: hidden;
+    color: white;
+}
