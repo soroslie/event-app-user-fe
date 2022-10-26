@@ -4,8 +4,6 @@ import React from 'react';
 import moment from 'moment';
 import { BsCoin, BsPerson } from 'react-icons/bs';
 import { AiOutlineCalendar } from 'react-icons/ai';
-import BookMarkButton from './BookMarkButton';
-import image from '../../../assets/images/event-example.jpg';
 import StringHelper from '../../../helpers/stringHelper';
 
 function EventItem({
@@ -13,18 +11,20 @@ function EventItem({
   ticketPrice,
   capacity,
   maxXapacity,
+  picture,
   startTime,
   duration,
   onClick,
-  enableBookmark,
 }) {
   return (
-    <div onClick={onClick} className="hover:cursor-pointer col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 max-w-sm bg-white rounded-2xl border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:scale-105 duration-300">
+    <div onClick={onClick} className="hover:cursor-pointer col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 max-w-sm bg-white rounded-2xl border border-gray-200 shadow-md hover:scale-105 duration-300">
       <div className="p-3 relative">
-        <img className="rounded-3xl shadow-lg" src={image} alt="" />
-        {enableBookmark && <BookMarkButton buttonPadding={2} />}
+        <div className="rounded-3xl shadow-lg min-w-[100%] min-h-[200px]  bg-gray-100 flex">
+          <img className="m-auto  rounded-3xl w-[100%]" src={picture} alt={name} />
+          {/* {enableBookmark && <BookMarkButton buttonPadding={2} />} */}
+        </div>
       </div>
-      <div className="px-4 pb-4">
+      <div className="px-4 py-2">
         <a href="/" className="relative">
           <h5 className="mb-2 text-lg font-semibold tracking-tight text-gray-900 dark:text-white">
             {name}

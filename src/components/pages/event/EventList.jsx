@@ -10,8 +10,8 @@ function EventList({ data, loading, error }) {
 
   const navigate = useNavigate();
   return (
-    <div>
-      <div className="grid grid-cols-12 gap-4">
+    <div className="flex">
+      <div className="grid grid-cols-12 gap-4 mx-auto px-5">
         {!loading && !error
       && (data.map((item) => (
         <EventItem
@@ -23,6 +23,7 @@ function EventList({ data, loading, error }) {
           maxXapacity={item.max_capacity}
           startTime={item.start_time}
           onClick={() => navigate(`/events/${item.id}`)}
+          picture={item.picture}
           enableBookmark={email !== ''}
         />
       )))}

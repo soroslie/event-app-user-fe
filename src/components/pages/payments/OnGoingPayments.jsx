@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { BsFillTrashFill } from 'react-icons/bs';
-import PageHeader from '../components/layout/PageHeader';
-import StringHelper from '../helpers/stringHelper';
-import Form from '../components/input/Form';
-import { useEventBookmarkMutation, useGetEventPaymentsQuery } from '../store/slices/apiSlice';
-import PaymentSkeleton from '../components/pages/payments/PaymentSkeleton';
-import '../assets/styles/pages/payment.css';
-import PrimarryButton from '../components/input/PrimaryButton';
-import APIConstatnt from '../constants/api';
-import PaymentModal from '../components/modal/PaymentModal';
-import ConfirmationModal from '../components/modal/ConfirmationModal';
+import StringHelper from '../../../helpers/stringHelper';
+import Form from '../../input/Form';
+import { useEventBookmarkMutation, useGetEventPaymentsQuery, usePatchEventPaymentMutation } from '../../../store/slices/apiSlice';
+import PaymentSkeleton from './PaymentSkeleton';
+import '../../../assets/styles/pages/payment.css';
+import PrimarryButton from '../../input/PrimaryButton';
+import APIConstatnt from '../../../constants/api';
+import PaymentModal from '../../modal/PaymentModal';
+import ConfirmationModal from '../../modal/ConfirmationModal';
 
-function Payments() {
+function OnGoingPayments() {
   const { data, isFetching: loading, error } = useGetEventPaymentsQuery();
   const [unBookmarking] = useEventBookmarkMutation();
+  const [pay] = usePatchEventPaymentMutation();
   const [confirmationUnbookmarkModal, setConfirmationUnbookmarkModal] = useState({
     show: false,
     message: '',
@@ -58,7 +58,13 @@ function Payments() {
   };
 
   const doPayment = () => {
-
+    pay()
+      .unwrap()
+      .then(() => {
+        setConfirmationUnbookmarkModal({ ...confirmationPayModal, show: false });
+      })
+      .catch(() => {
+      });
   };
 
   const closeModalUnbookmarkConfiramation = () => {
@@ -75,8 +81,6 @@ function Payments() {
 
   return (
     <div>
-      <PageHeader title="payments" />
-      <h1>Events</h1>
       <Form onSubmit={handlePayment}>
         <table className="w-full text-sm text-left text-gray-500">
           <thead>
@@ -143,4 +147,4 @@ function Payments() {
   );
 }
 
-export default Payments;
+export default OnGoingPayments;

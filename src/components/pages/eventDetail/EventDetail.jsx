@@ -4,7 +4,6 @@ import { BsGiftFill } from 'react-icons/bs';
 import { AiFillCalendar, AiOutlineFieldTime } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import BookMarkButton from '../event/BookMarkButton';
-import image from '../../../assets/images/event-example.jpg';
 import { useLazyGetEventBookmarkQuery, useEventBookmarkMutation } from '../../../store/slices/apiSlice';
 import APIConstatnt from '../../../constants/api';
 
@@ -18,7 +17,6 @@ function Event({ data }) {
   useEffect(() => {
     if (data.id) {
       trigger({ eventId: data.id }).unwrap().then((response) => {
-        console.log(response);
         if (response.data === null) {
           setBookMarked(false);
         }
@@ -50,24 +48,26 @@ function Event({ data }) {
   return (
     <div className="relative mt-20">
       <div className="relative">
-        <img src={image} className="rounded-lg sm:rounded-none overflow-hidden" alt={`data.name ${image}`} />
-        {email && <BookMarkButton marked={bookMarked} size="40" buttonPadding={6} onClick={() => handleBookmark(data.id)} loading={buttonLoading} />}
+        <div className="bg-gray-100 flex rounded-lg sm:rounded-none min-h-[400px]">
+          <img src={data.picture} className="m-auto  overflow-hidden" alt={`data.name ${data.name}`} />
+          {email && <BookMarkButton marked={bookMarked} size="40" buttonPadding={6} onClick={() => handleBookmark(data.id)} loading={buttonLoading} />}
+        </div>
       </div>
       <div className="px-6 absolute w-full mt-[-5%] sm:mt-2 sm:rounded-t-none rounded-t-3xl z-40 my-6 [&>*]:p-2 [&>*]:mt-4 bg-white sm:shadow-xl">
         <div>
-          <h1 className="font-bold capitalize text-3xl md:text-5xl">{data.name}</h1>
+          <h1 className="font-bold capitalize text-xl md:text-3xl">{data.name}</h1>
           <p className="text-xl">
             <span className="font-bold">{data.capacity}</span>
             <span className="text-gray-600"> People are joined this event</span>
           </p>
         </div>
         <div className="[&>h1]:text-gray-400 [&>h1]:font-semibold">
-          <h1 className="text-2xl md:text-3xl">Description</h1>
-          <p className="text-xl">
+          <h1 className="text-lg md:text-xl">Description</h1>
+          <p className="text-lg">
             {data.description}
           </p>
         </div>
-        <div className="[&>*]:p-1 [&>span>p]:font-bold [&>span>p]:text-xl">
+        <div className="[&>*]:p-1 [&>span>p]:font-bold [&>span>p]:text-lg">
           <span className="align-baseline flex items-center">
             <button type="button" className="rounded-full p-3 bg-orange-100">
               <AiFillCalendar className="w-8 h-8 text-orange-600" />
@@ -102,7 +102,7 @@ function Event({ data }) {
           </span>
         </div>
         <div className="[&>h1]:text-gray-400 [&>h1]:font-semibold">
-          <h1 className="mb-3 text-2xl md:text-3xl">Maps</h1>
+          <h1 className="mb-3 text-xl md:text-2xl">Maps</h1>
           <div className="bg-green-100 p-6 rounded-2xl">
             <iframe
               title="maps"

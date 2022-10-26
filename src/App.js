@@ -13,7 +13,9 @@ import Events from './pages/Events';
 import EventDetail from './pages/EventDetail';
 import RequireAuth from './components/RequireAuth';
 import Profile from './pages/Profile';
-import Payments from './pages/Payments';
+import OnGoingPayments from './components/pages/payments/OnGoingPayments';
+import Navigations from './components/pages/payments/Navigations';
+import HistoryEventPayment from './components/pages/payments/HistoryEventPayment';
 
 function App() {
   return (
@@ -40,7 +42,10 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/memberships" element={<Membership />} />
               <Route path="/topup" element={<Topup />} />
-              <Route path="/payments" element={<Payments />} />
+              <Route path="/payments" element={<Navigations />}>
+                <Route index element={<OnGoingPayments />} />
+                <Route path="/payments/history" element={<HistoryEventPayment />} />
+              </Route>
             </Route>
           </Route>
           <Route path="/notfound" element={<PageNotFound />} />

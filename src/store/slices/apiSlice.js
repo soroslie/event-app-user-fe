@@ -110,6 +110,7 @@ export const apiSlice = createApi({
     getEventBookmark: builder.query({
       query: ({ eventId }) => ({
         url: `/user/event-bookmark/${eventId}`,
+        method: APIConstatnt.METHOD.get,
       }),
       providesTags: ['Event-Bookmark'],
       invalidatesTags: (result, error, arg) => (!error && result ? ['Payments'] : []),
@@ -117,6 +118,22 @@ export const apiSlice = createApi({
     getEventPayments: builder.query({
       query: () => ({
         url: '/payments',
+        method: APIConstatnt.METHOD.get,
+      }),
+      providesTags: ['Payments'],
+    }),
+    patchEventPayment: builder.mutation({
+      query: () => ({
+        url: '/payment',
+        method: APIConstatnt.METHOD.patch,
+      }),
+      providesTags: ['Payments'],
+      invalidatesTags: (result, error, arg) => (!error && result ? ['Payments', 'Profile'] : []),
+    }),
+    getHistoryEventPayment: builder.query({
+      query: () => ({
+        url: '/user/history-payments',
+        method: APIConstatnt.METHOD.get,
       }),
       providesTags: ['Payments'],
     }),
@@ -140,4 +157,6 @@ export const {
   useGetEventQuery,
 
   useGetEventPaymentsQuery,
+  usePatchEventPaymentMutation,
+  useGetHistoryEventPaymentQuery,
 } = apiSlice;
