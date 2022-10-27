@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import PageHeader from '../components/layout/PageHeader';
 import EventList from '../components/pages/event/EventList';
 import { useGetEventsQuery } from '../store/slices/apiSlice';
@@ -6,8 +7,9 @@ import SelectEntriesTable from '../components/input/SelectEntries';
 import { selectEventSortBy, selectShowLimit, selectSort } from '../constants/selectData';
 
 function Events() {
+  const { email } = useSelector((state) => state.profile);
+
   const [showBookmark, setShowBookmark] = useState(false);
-  console.log(showBookmark);
   const [query, setQuery] = useState({
     search: '',
     sort: 'ASC',
@@ -50,11 +52,13 @@ function Events() {
     <div>
       <PageHeader title="browse events" />
       <div className="m-4">
+        {email && (
         <div className="flex">
           <p className="mr-2">Show Bookmark</p>
           <input type="checkbox" onChange={() => setShowBookmark(!showBookmark)} checked={showBookmark} id="switch" />
           <label className="toggle-checkbox" htmlFor="switch">Toggle</label>
         </div>
+        )}
         <div
           className="flex items-center mx-auto max-w-screen-sm my-3 "
         >

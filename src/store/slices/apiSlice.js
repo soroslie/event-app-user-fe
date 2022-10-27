@@ -9,7 +9,7 @@ export const apiSlice = createApi({
     baseUrl: APIConstatnt.baseUrl,
     prepareHeaders: setPrepareHeader,
   }),
-  tagTypes: ['Auth', 'Membership'],
+  tagTypes: ['Auth', 'Membership', 'Bookmarks', 'Events', 'Profile'],
   endpoints: (builder) => ({
     authLogin: builder.mutation({
       query: ({ email, password }) => ({
@@ -89,7 +89,7 @@ export const apiSlice = createApi({
         url: `${bookmark ? '/user/event-bookmarks' : '/events'}?search=${search}&limit=${limit}&sortBy=${sortBy}&sort=${sort}`,
         method: APIConstatnt.METHOD.get,
       }),
-      providesTags: ['Events'],
+      providesTags: ['Events', 'Bookmarks'],
     }),
     getEvent: builder.query({
       query: ({ id }) => ({
@@ -107,7 +107,7 @@ export const apiSlice = createApi({
         },
       }),
       providesTags: ['Event-Bookmark'],
-      invalidatesTags: (result, error, arg) => (!error && result ? ['Payments'] : []),
+      invalidatesTags: (result, error, arg) => (!error && result ? ['Payments', 'Events', 'Bookmarks'] : []),
     }),
     getEventBookmark: builder.query({
       query: ({ eventId }) => ({

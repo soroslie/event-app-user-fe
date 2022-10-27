@@ -59,13 +59,17 @@ function NavbarItemDropDown() {
         <div className="dropdown-content text-center">
           <p className="dropdown-content-item">
             <NavLink to="/profile" className="flex-col">
-              <p>{data.data.email}</p>
-              <p>{data.data.membership_type}</p>
-              <p className="add-idr">{StringHelper.formatWithCommas(data.data.balance)}</p>
+              <span>{data.data.email}</span>
+              <br />
+              <span>{data.data.membership_type}</span>
+              <br />
+              <span className="add-idr">{StringHelper.formatWithCommas(data.data.balance)}</span>
             </NavLink>
           </p>
-          <p><NavLink className="dropdown-content-item underline-under p-4 uppercase  duration-300 ease-in-out text-orange-600" to="/topup">toptup</NavLink></p>
-          <p><button type="button" className="text-orange-600 mx-auto" onClick={doLogout}>LOGOUT</button></p>
+          <p className="flex dropdown-content-item">
+            <NavLink className="mx-auto underline-under p-4 uppercase  duration-300 ease-in-out" to="/topup">toptup</NavLink>
+          </p>
+          <p className="dropdown-content-item "><button type="button" className="p-4text-orange-600 mx-auto" onClick={doLogout}>LOGOUT</button></p>
         </div>
       </div>
       )}
