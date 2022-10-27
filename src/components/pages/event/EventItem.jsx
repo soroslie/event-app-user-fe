@@ -4,6 +4,7 @@ import React from 'react';
 import moment from 'moment';
 import { BsCoin, BsPerson } from 'react-icons/bs';
 import { AiOutlineCalendar } from 'react-icons/ai';
+import { BiCategoryAlt } from 'react-icons/bi';
 import StringHelper from '../../../helpers/stringHelper';
 
 function EventItem({
@@ -14,6 +15,7 @@ function EventItem({
   picture,
   startTime,
   duration,
+  categories,
   onClick,
 }) {
   return (
@@ -33,7 +35,7 @@ function EventItem({
         <div className="grid grid-cols-2">
           <div>
             <p className="mb-1 font-normal text-gray-600 text-xs align-baseline flex items-center">
-              <AiOutlineCalendar className="mr-1 text-orange-600" />
+              <AiOutlineCalendar className="mr-1 text-orange-600 w-4 h-6" />
               {moment(startTime).format('DD, MMM YYYY')}
             </p>
             <p className="mb-3 font-normal text-gray-600 text-sm align-baseline flex items-center">
@@ -49,12 +51,15 @@ function EventItem({
               {`${capacity}/${maxXapacity}`}
               <BsPerson className="text-orange-600" />
             </p>
-            <p className="text-right mb-3 font-normal text-gray-600 text-sm">
+            <p className="text-right mb-1 font-normal text-gray-600 text-sm">
               {duration}
               {' '}
               <span>minutes</span>
             </p>
           </div>
+          <p className="uppercase text-bold text-center mb-1 p-1 font-normal text-orange-600 border rounded-full text-xs border-solid border-orange-600">
+            {categories}
+          </p>
         </div>
       </div>
     </div>

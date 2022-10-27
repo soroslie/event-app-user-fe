@@ -83,8 +83,10 @@ export const apiSlice = createApi({
       providesTags: ['Profile'],
     }),
     getEvents: builder.query({
-      query: () => ({
-        url: '/events',
+      query: ({
+        search, limit, sort, sortBy, bookmark,
+      }) => ({
+        url: `${bookmark ? '/user/event-bookmarks' : '/events'}?search=${search}&limit=${limit}&sortBy=${sortBy}&sort=${sort}`,
         method: APIConstatnt.METHOD.get,
       }),
       providesTags: ['Events'],

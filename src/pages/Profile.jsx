@@ -11,6 +11,7 @@ import Form from '../components/input/Form';
 import ConfirmationModal from '../components/modal/ConfirmationModal';
 import SuccessModal from '../components/modal/SuccessModal';
 import ErrorModal from '../components/modal/ErrorModal';
+import StringHelper from '../helpers/stringHelper';
 
 function Profile() {
   const navigate = useNavigate();
@@ -122,7 +123,7 @@ function Profile() {
     <div>
       {' '}
       <PageHeader title="Profile" />
-      {error && !isLoading && <ProfileSkeleton />}
+      {!error && isLoading && <ProfileSkeleton />}
       {!error && !isLoading && (
       <div className="p-6 bg-gray-50 shadow-xl mt-4 max-w-xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3">
@@ -145,7 +146,7 @@ function Profile() {
         <div className="text-center mb-12 border-b pb-12 mt-4 md:mt-10">
           <div>
             <Input disabled value={data.data.email} title="email" />
-            <p className="font-light text-green-600 mt-3 capitalize add-idr text-4xl">{data.data.balance}</p>
+            <p className="font-light text-green-600 mt-3 capitalize add-idr text-4xl">{StringHelper.formatWithCommas(data.data.balance)}</p>
             <div className="flex place-content-between">
               <p className="font-light text-gray-600 mt-5 capitalize text-left text-3xl">{data.data.membership_type}</p>
               {data.data.membership_type !== 'platinum' && <TertiaryButton title="UPGRADE*" onClick={toMembershipsPage} />}

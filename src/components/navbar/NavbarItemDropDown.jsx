@@ -5,6 +5,7 @@ import LocalStorageConstant from '../../constants/local_storage';
 import { useGetProfileQuery } from '../../store/slices/apiSlice';
 import Spinner from '../Spinner';
 import { setProfile } from '../../store/slices/profileSlice';
+import StringHelper from '../../helpers/stringHelper';
 
 function NavbarItemDropDown() {
   const token = localStorage.getItem(LocalStorageConstant.TOKEN_KEY);
@@ -56,13 +57,15 @@ function NavbarItemDropDown() {
           </svg>
         </div>
         <div className="dropdown-content text-center">
-          <p className="dropdown-content-item flex-col">
-            <span>{data.data.email}</span>
-            <span>{data.data.membership_type}</span>
-            <span>{data.data.balance}</span>
+          <p className="dropdown-content-item">
+            <NavLink to="/profile" className="flex-col">
+              <p>{data.data.email}</p>
+              <p>{data.data.membership_type}</p>
+              <p className="add-idr">{StringHelper.formatWithCommas(data.data.balance)}</p>
+            </NavLink>
           </p>
-          <NavLink className="dropdown-content-item underline-under p-4 uppercase  duration-300 ease-in-out text-orange-600" to="/topup">toptup</NavLink>
-          <button type="button" className="dropdown-content-item mx-auto" onClick={doLogout}>LOGOUT</button>
+          <p><NavLink className="dropdown-content-item underline-under p-4 uppercase  duration-300 ease-in-out text-orange-600" to="/topup">toptup</NavLink></p>
+          <p><button type="button" className="text-orange-600 mx-auto" onClick={doLogout}>LOGOUT</button></p>
         </div>
       </div>
       )}
