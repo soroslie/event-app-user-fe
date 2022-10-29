@@ -1,8 +1,9 @@
 import './App.css';
 import {
   BrowserRouter,
-  Navigate, Route, Routes,
+  Navigate, Route, Routes, useLocation,
 } from 'react-router-dom';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Home from './pages/Home';
 import Auth from './pages/Auth';
 import Layout from './components/layout/Layout';
@@ -20,38 +21,41 @@ import HistoryEventPayment from './components/pages/payments/HistoryEventPayment
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={(
-              <Layout />
-            )}
-          >
-            <Route path="/login" element={<Auth />} />
-            <Route index element={<Home />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/events/:id" element={<EventDetail />} />
-
+      <HelmetProvider>
+        <BrowserRouter>
+          <Routes>
             <Route
               path="/"
               element={(
-                <RequireAuth redirectTo="/login" />
+                <Layout />
             )}
             >
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/memberships" element={<Membership />} />
-              <Route path="/topup" element={<Topup />} />
-              <Route path="/payments" element={<Navigations />}>
-                <Route index element={<OnGoingPayments />} />
-                <Route path="/payments/history" element={<HistoryEventPayment />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route index element={<Home />} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/events/:id" element={<EventDetail />} />
+
+              <Route
+                path="/"
+                element={(
+                  <RequireAuth redirectTo="/auth" />
+            )}
+              >
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/memberships" element={<Membership />} />
+                <Route path="/topup" element={<Topup />} />
+                <Route path="/payments" element={<Navigations />}>
+                  <Route index element={<OnGoingPayments />} />
+                  <Route path="/payments/history" element={<HistoryEventPayment />} />
+                </Route>
               </Route>
             </Route>
-          </Route>
-          <Route path="/notfound" element={<PageNotFound />} />
-          <Route path="*" element={<Navigate to="/notfound" replace />} />
-        </Routes>
-      </BrowserRouter>
+            <Route path="/notfound" element={<PageNotFound />} />
+            <Route path="*" element={<Navigate to="/notfound" replace />} />
+          </Routes>
+        </BrowserRouter>
+
+      </HelmetProvider>
     </div>
   );
 }

@@ -13,7 +13,7 @@ function NavbarItemDropDown() {
   if (!token) {
     return (
       <li className="underline-under mx-auto my-auto px-3 py-1 uppercase text-orange-600 duration-300 hover:bg-orange-600 hover:text-white ease-in-out bg-white rounded-full">
-        <NavLink to="/login">login</NavLink>
+        <NavLink to="/auth">login</NavLink>
       </li>
     );
   }
@@ -22,7 +22,7 @@ function NavbarItemDropDown() {
 
   const doLogout = () => {
     localStorage.removeItem(LocalStorageConstant.TOKEN_KEY);
-    navigate('/login');
+    navigate('/auth');
   };
   const dispatch = useDispatch();
 

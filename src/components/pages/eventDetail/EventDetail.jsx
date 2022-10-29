@@ -6,12 +6,16 @@ import { useSelector } from 'react-redux';
 import BookMarkButton from '../event/BookMarkButton';
 import { useLazyGetEventBookmarkQuery, useEventBookmarkMutation } from '../../../store/slices/apiSlice';
 import APIConstatnt from '../../../constants/api';
+import PaymentEligible from './PaymentEligible';
+import EventFull from './EventFull';
 
 function Event({ data }) {
   const { email } = useSelector((state) => state.profile);
   const [bookmarking] = useEventBookmarkMutation();
   const [buttonLoading, setButtonLoading] = useState(false);
   const [bookMarked, setBookMarked] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState('UNPAID');
+
   const [trigger, result, lastPromiseInfo] = useLazyGetEventBookmarkQuery();
 
   useEffect(() => {
@@ -22,6 +26,7 @@ function Event({ data }) {
         }
         if (response.data !== null) {
           setBookMarked(true);
+          setPaymentStatus(response.data.payment_status);
         }
       });
     }
@@ -41,7 +46,6 @@ function Event({ data }) {
       })
       .catch((error) => {
         setButtonLoading(false);
-        setBookMarked(!bookMarked);
       });
   };
 
@@ -50,7 +54,10 @@ function Event({ data }) {
       <div className="relative">
         <div className="bg-gray-100 flex rounded-lg sm:rounded-none min-h-[400px]">
           <img src={data.picture} className="m-auto  overflow-hidden" alt={`data.name ${data.name}`} />
-          {email && <BookMarkButton marked={bookMarked} size="40" buttonPadding={6} onClick={() => handleBookmark(data.id)} loading={buttonLoading} />}
+          {email && data.capacity < data.max_capacity && paymentStatus !== 'PAID' && <BookMarkButton marked={bookMarked} size="40" buttonPadding={6} onClick={() => handleBookmark(data.id)} loading={buttonLoading} />}
+          {paymentStatus === 'PAID' && <PaymentEligible />}
+          {data.capacity >= data.max_capacity && <EventFull />}
+
         </div>
       </div>
       <div className="px-6 absolute w-full mt-[-5%] sm:mt-2 sm:rounded-t-none rounded-t-3xl z-40 my-6 [&>*]:p-2 [&>*]:mt-4 bg-white sm:shadow-xl">

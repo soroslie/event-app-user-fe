@@ -61,9 +61,10 @@ function OnGoingPayments() {
     pay()
       .unwrap()
       .then(() => {
-        setConfirmationUnbookmarkModal({ ...confirmationPayModal, show: false });
+        setConfirmationPayModal({ ...confirmationPayModal, show: false });
       })
       .catch(() => {
+        setConfirmationPayModal({ ...confirmationPayModal, show: false });
       });
   };
 
@@ -125,7 +126,7 @@ function OnGoingPayments() {
             </tr>
           </tfoot>
         </table>
-        <PrimarryButton title="submit" onClick={handlePayment} />
+        {!loading && !error && data.data !== null && <PrimarryButton title="submit" onClick={handlePayment} />}
       </Form>
       <PaymentModal
         show={confirmationPayModal.show}

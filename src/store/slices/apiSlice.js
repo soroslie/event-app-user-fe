@@ -130,7 +130,7 @@ export const apiSlice = createApi({
         method: APIConstatnt.METHOD.patch,
       }),
       providesTags: ['Payments'],
-      invalidatesTags: (result, error, arg) => (!error && result ? ['Payments', 'Profile'] : []),
+      invalidatesTags: ['Payments', 'Profile'],
     }),
     getHistoryEventPayment: builder.query({
       query: () => ({
