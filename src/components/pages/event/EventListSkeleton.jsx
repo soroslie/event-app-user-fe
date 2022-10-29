@@ -47,7 +47,11 @@ function EventListSkeleton() {
     return content;
   };
 
-  return <>{loopEventItms()}</>;
+  return (
+    <div className="grid grid-cols-12 gap-4 mx-auto px-5">
+      {loopEventItms()}
+    </div>
+  );
 }
 
 export default EventListSkeleton;

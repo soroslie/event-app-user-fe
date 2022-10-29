@@ -1,16 +1,24 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { useGetPurchasableMerchandisesQuery } from '../store/slices/apiSlice';
 import picture from '../assets/images/merchandise.jpeg';
 import PageHeader from '../components/layout/PageHeader';
 import StringHelper from '../helpers/stringHelper';
 import '../assets/styles/pages/merchandises.css';
+import MerchandiseListSkeleton from '../components/pages/merchandises/MerchandiseListSkeleton';
 
 function Merchandises() {
   const { data, isFetching: loading, error } = useGetPurchasableMerchandisesQuery();
-  console.log(data);
   return (
     <>
       <PageHeader title="Merchandise" />
+      {loading && !error && <MerchandiseListSkeleton />}
+      {!loading && !error && data == null && (
+      <div className="text-center my-32 font-bold">
+        <h1 className="mb-3">NO AVAILABLE MERCHANDISE </h1>
+        <NavLink className="text-white bg-orange-600 p-3 rounded-full" to="/events">JOIN EVENT</NavLink>
+      </div>
+      )}
       {!loading && !error && data && (
         <div className="grid grid-cols-12 gap-4 mx-auto px-5 ">
           {data.data.map((item) => (
@@ -32,7 +40,7 @@ function Merchandises() {
                   <h3 className="uppercase pt-2 text-gray-400">{item.event_name}</h3>
                 </div>
               </div>
-              <button type="button" className="uppercase w-full bg-orange-600 text-white mx-auto text-center merchandise-btn">add to cart</button>
+              <button type="button" className="uppercase w-full hover:scale-105 hover:text-bold duration-300 ease-in-out bg-orange-600 text-white mx-auto text-center merchandise-btn">add to cart</button>
             </div>
           ))}
         </div>

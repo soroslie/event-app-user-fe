@@ -12,6 +12,7 @@ function EventList({ data, loading, error }) {
   return (
     <div className="flex">
       {!loading && !error && !data && <div className="text-center w-full text-xl text-orange-600 font-bold my-14 uppercase">no matching result</div>}
+      {loading && !error && <EventListSkeleton />}
       {!loading && !error && data
       && (
       <div className="grid grid-cols-12 gap-4 mx-auto px-5">
@@ -30,7 +31,6 @@ function EventList({ data, loading, error }) {
             enableBookmark={email !== ''}
           />
         )))}
-        {loading && <EventListSkeleton />}
       </div>
       )}
       {error && (<ErrorCard message={error.error} />)}
