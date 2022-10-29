@@ -17,6 +17,7 @@ import Profile from './pages/Profile';
 import OnGoingPayments from './components/pages/payments/OnGoingPayments';
 import Navigations from './components/pages/payments/Navigations';
 import HistoryEventPayment from './components/pages/payments/HistoryEventPayment';
+import Merchandises from './pages/Merchandises';
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
                   <Route index element={<OnGoingPayments />} />
                   <Route path="/payments/history" element={<HistoryEventPayment />} />
                 </Route>
+                <Route path="/merchandises" element={<Merchandises />} />
               </Route>
             </Route>
             <Route path="/notfound" element={<PageNotFound />} />

@@ -1,0 +1,7 @@
+.merchandise:hover .merchandise-btn {
+    visibility: visible;
+}
+
+.merchandise-btn{
+ visibility: hidden;
+}

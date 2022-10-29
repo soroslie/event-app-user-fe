@@ -139,6 +139,13 @@ export const apiSlice = createApi({
       }),
       providesTags: ['Payments'],
     }),
+    getPurchasableMerchandises: builder.query({
+      query: () => ({
+        url: '/user/event-merchandises',
+        method: APIConstatnt.METHOD.get,
+      }),
+      providesTags: ['Merchandise'],
+    }),
   }),
 });
 
@@ -161,4 +168,6 @@ export const {
   useGetEventPaymentsQuery,
   usePatchEventPaymentMutation,
   useGetHistoryEventPaymentQuery,
+
+  useGetPurchasableMerchandisesQuery,
 } = apiSlice;

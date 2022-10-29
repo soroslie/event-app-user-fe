@@ -27,11 +27,11 @@ function EventItem({
         </div>
       </div>
       <div className="px-4 py-2">
-        <a href="/" className="relative">
+        <div className="relative">
           <h5 className="mb-2 text-lg font-semibold tracking-tight text-gray-900 dark:text-white">
             {name}
           </h5>
-        </a>
+        </div>
         <div className="grid grid-cols-2">
           <div>
             <p className="mb-1 font-normal text-gray-600 text-xs align-baseline flex items-center">
@@ -42,7 +42,9 @@ function EventItem({
               <span className="align-baseline flex items-center">
                 <BsCoin className="mr-1 text-yellow-600" />
                 {' '}
-                {StringHelper.formatWithCommas(ticketPrice)}
+                <span className="add-idr">
+                  {StringHelper.formatWithCommas(ticketPrice)}
+                </span>
               </span>
             </p>
           </div>
