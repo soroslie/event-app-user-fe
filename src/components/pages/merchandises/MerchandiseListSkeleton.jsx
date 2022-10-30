@@ -24,7 +24,7 @@ function MerchandiseListSkeleton() {
               <div className="h-3 bg-gray-200 rounded-full w-48 mb-4" />
               <div className="h-4 bg-gray-200 rounded-full w-32 mb-4" />
               <p className="pt-2">
-                <div className="h-2.5 bg-gray-200 rounded-full w-32 mb-4" />
+                <span className="h-2.5 bg-gray-200 rounded-full w-32 mb-4" />
               </p>
               <div className="h-2.5 bg-gray-200 rounded-full w-32 mb-4" />
             </div>
