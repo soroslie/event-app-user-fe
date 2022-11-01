@@ -6,14 +6,12 @@ import Event from '../components/pages/eventDetail/EventDetail';
 
 function EventDetail() {
   const { id } = useParams();
-  const { data, loading, error } = useGetEventQuery({ id });
+  const { data, isFetching: loading, error } = useGetEventQuery({ id });
 
   return (
     <div>
       {loading && !error && (
-      <div className="relative">
         <EventDetailSkeleton />
-      </div>
       ) }
       {data && !error && !loading && (
       <Event data={data.data} />
