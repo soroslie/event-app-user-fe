@@ -37,7 +37,7 @@ function Membership() {
   });
 
   const { membershipType } = useSelector((state) => state.profile);
-  const [newMembershipType, setNewMembershipType] = useState(1);
+  const [newMembershipType, setNewMembershipType] = useState(0);
 
   const onHandleSubmit = (e) => {
     e.preventDefault();
@@ -67,15 +67,15 @@ function Membership() {
     })
     .catch((err) => {
       setConfirmationModal({ ...confirmationModal, show: false });
-      if (err) {
+      if (!err.data) {
         setErrorModal({
           show: true,
-          message: err.data.error_message,
+          message: 'something went wrong',
         });
       } else {
         setErrorModal({
           show: true,
-          message: 'something went wrong',
+          message: err.data.message,
         });
       }
     });
@@ -104,7 +104,7 @@ function Membership() {
       <MembershipList
         data={!loading && !error ? data.data : []}
         loading={!!(loading && !error)}
-        error={!loading && !error ? error : null}
+        error={!loading && error ? error : null}
       />
       <p className="max-w-[1240px] sm:ml-10 mt-2 text-gray-400 text-center sm:text-left">*This membership apllied lifetime and bind to this account</p>
       {membershipType && (

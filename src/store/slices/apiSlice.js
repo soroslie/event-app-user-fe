@@ -100,7 +100,7 @@ export const apiSlice = createApi({
     }),
     eventBookmark: builder.mutation({
       query: ({ eventId, method }) => ({
-        url: '/user/event-bookmark',
+        url: `/user/event-bookmark/${eventId}`,
         method,
         body: {
           event_id: eventId,

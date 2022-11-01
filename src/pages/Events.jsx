@@ -103,7 +103,7 @@ function Events() {
       <EventList
         data={!loading && !error ? data.data : []}
         loading={!!(loading && !error)}
-        error={!loading && !error ? error : null}
+        error={!loading && error ? error : null}
       />
     </div>
   );

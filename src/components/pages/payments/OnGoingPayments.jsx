@@ -9,6 +9,8 @@ import PrimarryButton from '../../input/PrimaryButton';
 import APIConstatnt from '../../../constants/api';
 import PaymentModal from '../../modal/PaymentModal';
 import ConfirmationModal from '../../modal/ConfirmationModal';
+import EmptyTransactions from './EmptyTransactions';
+import ErrorModal from '../../modal/ErrorModal';
 
 function OnGoingPayments() {
   const { data, isFetching: loading, error } = useGetEventPaymentsQuery();
@@ -24,6 +26,11 @@ function OnGoingPayments() {
     show: false,
     message1: '',
     dataPayments: [],
+  });
+
+  const [errorModal, setErrorModal] = useState({
+    message: '',
+    show: false,
   });
 
   const handlerUnBookMark = (eventId, eventName) => {
@@ -43,7 +50,19 @@ function OnGoingPayments() {
       .then(() => {
         setConfirmationUnbookmarkModal({ ...confirmationUnbookmarkModal, show: false });
       })
-      .catch(() => {
+      .catch((err) => {
+        setConfirmationPayModal({ ...confirmationPayModal, show: false });
+        if (err.data) {
+          setErrorModal({
+            show: true,
+            message: err.data.message,
+          });
+        } else {
+          setErrorModal({
+            show: true,
+            message: 'something went wrong',
+          });
+        }
       });
   };
 
@@ -63,8 +82,19 @@ function OnGoingPayments() {
       .then(() => {
         setConfirmationPayModal({ ...confirmationPayModal, show: false });
       })
-      .catch(() => {
+      .catch((err) => {
         setConfirmationPayModal({ ...confirmationPayModal, show: false });
+        if (err.data) {
+          setErrorModal({
+            show: true,
+            message: err.data.message,
+          });
+        } else {
+          setErrorModal({
+            show: true,
+            message: 'something went wrong',
+          });
+        }
       });
   };
 
@@ -77,6 +107,12 @@ function OnGoingPayments() {
   const closeModalPayConfiramation = () => {
     setConfirmationPayModal({
       ...confirmationPayModal, show: false,
+    });
+  };
+
+  const closeErrorModal = () => {
+    setErrorModal({
+      show: false,
     });
   };
 
@@ -99,9 +135,7 @@ function OnGoingPayments() {
           <tbody>
             {!error && loading && <PaymentSkeleton />}
             {!loading && !error && data.data === null && (
-              <tr className="uppercase font-medium border-b-2 text-black [&>*]:px-2 [&>*]:py-20 text-center">
-                <td colSpan="4" className="text-black font-bold">NO ONGOING TRANSACTION</td>
-              </tr>
+              <EmptyTransactions />
             )}
             {!loading && !error && data.data !== null && (data.data.map((item) => (
               <tr key={item.id} className="history-item uppercase font-medium border-b-2 text-black [&>*]:py-4 [&>*]:px-2 hover:bg-gray-100">
@@ -143,6 +177,11 @@ function OnGoingPayments() {
         onConfirmModal={doUnBookmark}
         title="Confirmation Payment Cancel"
         message={confirmationUnbookmarkModal.message}
+      />
+      <ErrorModal
+        message={errorModal.message}
+        onCloseModal={closeErrorModal}
+        show={errorModal.show}
       />
     </div>
   );

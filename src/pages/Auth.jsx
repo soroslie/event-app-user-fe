@@ -66,10 +66,10 @@ function Auth() {
         navigate('/');
       })
       .catch((error) => {
-        if (error.data.error_message) {
+        if (error.data.message) {
           setInputError({
             ...inputError,
-            formError: error.data.error_message,
+            formError: error.data.message,
           });
         } else {
           setInputError({
@@ -99,15 +99,15 @@ function Auth() {
         setButtonLoading(false);
       })
       .catch((error) => {
-        if (error.data.error_message) {
+        if (!error.data) {
           setInputError({
             ...inputError,
-            formError: error.data.error_message,
+            formError: 'something went wrong',
           });
         } else {
           setInputError({
             ...inputError,
-            formError: 'something went wrong',
+            formError: error.data.message,
           });
         }
         setButtonLoading(false);

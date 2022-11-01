@@ -1,11 +1,11 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import { useGetPurchasableMerchandisesQuery } from '../store/slices/apiSlice';
 import PageHeader from '../components/layout/PageHeader';
-import StringHelper from '../helpers/stringHelper';
 import '../assets/styles/pages/merchandises.css';
 import MerchandiseListSkeleton from '../components/pages/merchandises/MerchandiseListSkeleton';
 import MerchandiseItem from '../components/pages/merchandises/MerchandiseItem';
+import EmptyMerchandise from '../components/pages/merchandises/EmptyMerchandise';
+import ErrorCard from '../components/cards/ErrorCard';
 
 function Merchandises() {
   const { data, isFetching: loading, error } = useGetPurchasableMerchandisesQuery();
@@ -13,14 +13,12 @@ function Merchandises() {
     <>
       <PageHeader title="Merchandise" />
       {loading && !error && <MerchandiseListSkeleton />}
-      {!loading && !error && data == null && (
-      <div className="text-center my-32 font-bold">
-        <h1 className="mb-3">NO AVAILABLE MERCHANDISE </h1>
-        <NavLink className="text-white bg-orange-600 p-3 rounded-full" to="/events">JOIN EVENT</NavLink>
-      </div>
+      {!loading && error && <ErrorCard message={error.error} />}
+      {!loading && !error && data.data == null && (
+      <EmptyMerchandise />
       )}
-      {!loading && !error && data && (
-        <div className="grid grid-cols-12 gap-4 mx-auto px-5 ">
+      {!loading && !error && data.data != null && (
+        <div className="grid grid-cols-12 gap-4 mx-auto px-5">
           {data.data.map((item) => (
             <MerchandiseItem
               key={item.merchandise_id}

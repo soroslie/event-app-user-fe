@@ -3,6 +3,7 @@ import moment from 'moment';
 import Form from '../../input/Form';
 import { useGetHistoryEventPaymentQuery } from '../../../store/slices/apiSlice';
 import PaymentSkeleton from './PaymentSkeleton';
+import EmptyTransactions from './EmptyTransactions';
 
 function HistoryEventPayment() {
   const { data, isFetching: loading, error } = useGetHistoryEventPaymentQuery();
@@ -24,12 +25,10 @@ function HistoryEventPayment() {
         <tbody>
           {!error && loading && <PaymentSkeleton />}
           {!loading && !error && data.data.length === 0 && (
-          <tr className="uppercase font-medium border-b-2 text-black [&>*]:px-2 [&>*]:py-20 text-center">
-            <td colSpan="4" className="text-black font-bold">NO TRANSACTION HISTORY</td>
-          </tr>
+          <EmptyTransactions />
           )}
           {!loading && !error && data.data !== null && (data.data.map((item) => (
-            <tr key={item.id} className="history-item capitalize font-medium border-b-2 text-black [&>*]:py-4 [&>*]:px-2 hover:bg-gray-100">
+            <tr key={`${item.id}${item.event_name}`} className="history-item capitalize font-medium border-b-2 text-black [&>*]:py-4 [&>*]:px-2 hover:bg-gray-100">
               <td>
                 {moment(item.date).format('DD, MMM YYYY, HH:MM')}
               </td>
